@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://dgtv3oe6ne6s0"]
+[gd_scene load_steps=4 format=3 uid="uid://dgtv3oe6ne6s0"]
 
 [ext_resource type="Texture2D" uid="uid://s67jj0agg6jw" path="res://art/enemy-goomba.png" id="1_po8e1"]
+[ext_resource type="Script" path="res://goomba.gd" id="1_xukdf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sxsai"]
 radius = 12.0
 
-[node name="Goomba" type="RigidBody2D"]
+[node name="Goomba" type="Area2D"]
+script = ExtResource("1_xukdf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_sxsai")
@@ -13,3 +15,10 @@ shape = SubResource("CircleShape2D_sxsai")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("1_po8e1")
+
+[node name="GroundCheck" type="RayCast2D" parent="."]
+position = Vector2(16, 0)
+target_position = Vector2(0, 18)
+
+[node name="WallCheck" type="RayCast2D" parent="."]
+target_position = Vector2(18, 0)
