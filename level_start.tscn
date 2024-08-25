@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=4 uid="uid://crbea4m5tlvro"]
 
-[ext_resource type="Texture2D" uid="uid://h46mtylmcl06" path="res://grass-tileset.png" id="1_jyljl"]
+[ext_resource type="Texture2D" uid="uid://h46mtylmcl06" path="res://art/grass-tileset.png" id="1_jyljl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_38yct"]
 resource_name = "Terrain"
