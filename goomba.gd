@@ -5,6 +5,7 @@ enum Facing {LEFT, RIGHT}
 var speed := 80.0
 var facing := Facing.LEFT
 var ground_check_offset := Vector2(16, 0)
+var wall_check_target_offset := Vector2(18, 0)
 var destroyed := false
 
 @onready var ground_check: RayCast2D = $GroundCheck
@@ -45,9 +46,12 @@ func turn_around() -> void:
 
 func set_facing(new_facing: Facing) -> void:
 	facing = new_facing
-	if facing == Facing.RIGHT: ground_check.position = ground_check_offset
+	if facing == Facing.RIGHT:
+		ground_check.position = ground_check_offset
+		wall_check.target_position = wall_check_target_offset
 	else:
 		ground_check.position = Vector2(-ground_check_offset.x, ground_check_offset.y)
+		wall_check.target_position = Vector2(-wall_check_target_offset.x, wall_check_target_offset.y)
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
