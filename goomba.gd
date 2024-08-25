@@ -54,7 +54,7 @@ func set_facing(new_facing: Facing) -> void:
 		wall_check.target_position = Vector2(-wall_check_target_offset.x, wall_check_target_offset.y)
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.name == "Player":
+	if body.name == "Player" && !destroyed:
 		SignalBus.goomba_collider_hit.emit(body)
 
 func _on_destructor_body_entered(body: Node2D) -> void:
