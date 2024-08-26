@@ -20,3 +20,7 @@ texture_filter = 1
 texture = ExtResource("1_rntcd")
 hframes = 2
 script = ExtResource("3_7vwa5")
+
+[node name="BulletSpawnTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true

@@ -10,6 +10,7 @@ var particles_dead := false
 @onready var particle_generator: CPUParticles2D = $CPUParticles2D
 @onready var particlesAfterDeathTimer = $ParticlesAfterDeathTimer
 @onready var sprite := $Sprite2D
+@onready var animator := $AnimationPlayer
 
 func direction() -> Vector2:
 	if facing == Facing.LEFT: return Vector2.LEFT 
@@ -22,6 +23,7 @@ func _ready() -> void:
 	area_entered.connect(_on_area_entered)
 	velocity = speed * direction()
 	particle_generator.direction = -direction()
+	animator.play("spawn_in")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -36,8 +38,8 @@ func _on_body_entered(body: Node2D):
 
 func destroy_self():
 	destroyed = true
-	monitoring = false
-	monitorable = false
+	set_deferred("monitoring", false)
+	set_deferred("monitorable", false)
 	sprite.visible = false
 	particle_generator.emitting = false
 	particlesAfterDeathTimer.start()
@@ -47,7 +49,8 @@ func _on_destruction_timer_timeout():
 	particles_dead = true
 
 func _on_area_entered(area: Area2D):
-	if area.get_script().get_global_name() == "Goomba":
+	var script = area.get_script()
+	if script != null && script.get_global_name() == "Goomba": 
 		SignalBus.goomba_shot.emit(self, area)
 		destroy_self()
 

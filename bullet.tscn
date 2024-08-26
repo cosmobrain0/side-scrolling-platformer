@@ -1,10 +1,47 @@
-[gd_scene load_steps=5 format=3 uid="uid://c4d8g865d73wq"]
+[gd_scene load_steps=8 format=3 uid="uid://c4d8g865d73wq"]
 
 [ext_resource type="Texture2D" uid="uid://dta78t012cbyc" path="res://art/bullet.png" id="1_0fca3"]
 [ext_resource type="Script" path="res://bullet.gd" id="1_321oa"]
 [ext_resource type="Texture2D" uid="uid://oqlipdfp56rc" path="res://art/bullet-particles.png" id="3_ayx6y"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f1cjf"]
+
+[sub_resource type="Animation" id="Animation_i0m4w"]
+resource_name = "spawn_in"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(0.435275, 0.450625),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0.6, 0.6)]
+}
+
+[sub_resource type="Animation" id="Animation_8e1se"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.6, 0.6)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_effee"]
+_data = {
+"RESET": SubResource("Animation_8e1se"),
+"spawn_in": SubResource("Animation_i0m4w")
+}
 
 [node name="Bullet" type="Area2D"]
 collision_layer = 2
@@ -38,3 +75,8 @@ hue_variation_min = -0.34
 hue_variation_max = 0.46
 
 [node name="ParticlesAfterDeathTimer" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_effee")
+}
