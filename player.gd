@@ -5,6 +5,7 @@ enum Facing {LEFT, RIGHT}
 const SPEED: float = 300.0
 const JUMP_VELOCITY: float = -800.0
 var facing := Facing.RIGHT
+var bullet_scene := preload("res://bullet.tscn")
 
 var game_over := false
 
@@ -20,6 +21,14 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+
+	if Input.is_action_just_pressed("game_shoot"):
+		# TODO: add a timer so that the player can't shoot too fast
+		# TODO: add some sort of animation system
+		var bullet: Node2D = bullet_scene.instantiate()
+		bullet.position = position
+		get_tree().root.add_child(bullet)
+		SignalBus.bullet_spawned.emit(bullet, facing)
 
 	# Handle jump.
 	if Input.is_action_pressed("game_jump") and is_on_floor():

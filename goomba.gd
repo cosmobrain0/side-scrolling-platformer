@@ -1,3 +1,4 @@
+class_name Goomba
 extends Area2D
 
 enum Facing {LEFT, RIGHT}
@@ -17,7 +18,7 @@ var destroyed := false
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	destructor_area.body_entered.connect(_on_destructor_body_entered)
-	pass # Replace with function body.
+	SignalBus.goomba_shot.connect(_on_goomba_shot)
 
 func direction() -> Vector2:
 	if facing == Facing.LEFT: return Vector2.LEFT
@@ -60,4 +61,8 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_destructor_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		SignalBus.goomba_bounced_on.emit(body)
+		destroyed = true
+
+func _on_goomba_shot(bullet: Node2D, goomba: Area2D):
+	if goomba == self:
 		destroyed = true
