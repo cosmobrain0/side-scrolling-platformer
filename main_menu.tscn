@@ -47,5 +47,6 @@ pivot_offset = Vector2(85, 59)
 theme = SubResource("Theme_u6bjk")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_as884")
 shortcut = SubResource("Shortcut_yut8l")
+shortcut_in_tooltip = false
 text = "Play"
 script = ExtResource("1_ajyvo")
