@@ -244,8 +244,6 @@ _data = {
 
 [node name="Goomba" type="Area2D"]
 collision_mask = 3
-monitoring = false
-monitorable = false
 script = ExtResource("1_xukdf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

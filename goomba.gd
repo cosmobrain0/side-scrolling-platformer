@@ -1,3 +1,4 @@
+class_name Goomba
 extends Area2D
 
 enum Facing {LEFT, RIGHT}
@@ -21,6 +22,7 @@ var death_animation_name = "die"
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	destructor_area.body_entered.connect(_on_destructor_body_entered)
+	SignalBus.goomba_shot.connect(_on_goomba_shot)
 	animated_sprite.play()
 
 func direction() -> Vector2:
@@ -31,7 +33,6 @@ func direction() -> Vector2:
 func _process(delta: float) -> void:
 	if destroyed:
 		death_animation_player.advance(delta)
-		print("Destroyed, not freed")
 		if death_animation_complete: queue_free()
 		return
 	var velocity := Vector2.ZERO
@@ -66,8 +67,13 @@ func _on_body_entered(body: Node2D) -> void:
 		SignalBus.goomba_collider_hit.emit(body)
 
 func _on_destructor_body_entered(body: Node2D) -> void:
-	if body.name == "Player":
+	if body.name == "Player" and not destroyed:
 		SignalBus.goomba_bounced_on.emit(body)
+		destroy()
+
+func _on_goomba_shot(bullet: Node2D, goomba: Area2D):
+	if goomba == self and not destroyed:
+		print("Destroying")
 		destroy()
 
 func destroy():
@@ -78,5 +84,4 @@ func destroy():
 
 func _queue_for_free(name: String):
 	if death_animation_name == name:
-		print("Animation Complete")
 		death_animation_complete = true
