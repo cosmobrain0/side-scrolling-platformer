@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://8bfecsanr3m1"]
+
+[ext_resource type="Script" path="res://play_button.gd" id="1_ajyvo"]
+
+[sub_resource type="SystemFont" id="SystemFont_llld7"]
+
+[sub_resource type="Theme" id="Theme_u6bjk"]
+default_font = SubResource("SystemFont_llld7")
+default_font_size = 80
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_as884"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_booig"]
+device = -1
+keycode = 32
+unicode = 32
+
+[sub_resource type="InputEventKey" id="InputEventKey_plxsm"]
+device = -1
+keycode = 4194309
+
+[sub_resource type="Shortcut" id="Shortcut_yut8l"]
+events = [SubResource("InputEventKey_booig"), SubResource("InputEventKey_plxsm")]
+
+[node name="Main Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.5
+offset_top = -59.0
+offset_right = 84.5
+offset_bottom = 59.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(85, 59)
+theme = SubResource("Theme_u6bjk")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_as884")
+shortcut = SubResource("Shortcut_yut8l")
+text = "Play"
+script = ExtResource("1_ajyvo")
