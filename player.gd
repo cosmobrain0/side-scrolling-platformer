@@ -25,7 +25,7 @@ func _on_bullet_spawn_timer_timeout():
 func shoot_bullet():
 	can_shoot = false
 	wants_to_shoot = false
-	# TODO: add some sort of animation system
+	
 	var bullet: Node2D = bullet_scene.instantiate()
 	bullet.position = position
 	get_tree().root.add_child(bullet)
