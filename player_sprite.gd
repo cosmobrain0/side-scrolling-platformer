@@ -13,6 +13,7 @@ func _on_player_facing_changed(new_facing: Facing) -> void:
 	if new_facing == Facing.LEFT: animation = "look-left"
 	else: animation = "look-right"
 	current_facing = new_facing
+	frame = 0
 	play()
 
 func _on_player_bullet_spawned(_body: Node2D, facing: Facing):
@@ -21,6 +22,7 @@ func _on_player_bullet_spawned(_body: Node2D, facing: Facing):
 	else:
 		animation = "shoot-right"
 	current_facing = facing
+	frame = 0
 	play()
 
 func _on_animation_finished():
