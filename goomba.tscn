@@ -21,11 +21,11 @@ texture_filter = 1
 texture = ExtResource("1_po8e1")
 
 [node name="GroundCheck" type="RayCast2D" parent="."]
-position = Vector2(16, 0)
-target_position = Vector2(0, 18)
+position = Vector2(-16, 0)
+target_position = Vector2(0, 20)
 
 [node name="WallCheck" type="RayCast2D" parent="."]
-target_position = Vector2(18, 0)
+target_position = Vector2(-20, 0)
 
 [node name="Destructor" type="Area2D" parent="."]
 collision_mask = 3
