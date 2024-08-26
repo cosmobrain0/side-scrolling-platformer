@@ -1,12 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://8bfecsanr3m1"]
+[gd_scene load_steps=10 format=3 uid="uid://8bfecsanr3m1"]
 
 [ext_resource type="Script" path="res://play_button.gd" id="1_ajyvo"]
-
-[sub_resource type="SystemFont" id="SystemFont_llld7"]
-
-[sub_resource type="Theme" id="Theme_u6bjk"]
-default_font = SubResource("SystemFont_llld7")
-default_font_size = 80
+[ext_resource type="Theme" uid="uid://qju3ty0o5b04" path="res://main_menu.tres" id="1_la5c3"]
+[ext_resource type="Script" path="res://controls_label.gd" id="3_7v5h2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_as884"]
 
@@ -21,6 +17,12 @@ keycode = 4194309
 
 [sub_resource type="Shortcut" id="Shortcut_yut8l"]
 events = [SubResource("InputEventKey_booig"), SubResource("InputEventKey_plxsm")]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wt4k7"]
+
+[sub_resource type="Theme" id="Theme_wqupr"]
+default_base_scale = 80.0
+default_font_size = 45
 
 [node name="Main Menu" type="Control"]
 layout_mode = 3
@@ -38,15 +40,58 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -84.5
-offset_top = -59.0
+offset_top = -159.0
 offset_right = 84.5
-offset_bottom = 59.0
+offset_bottom = -41.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(85, 59)
-theme = SubResource("Theme_u6bjk")
+theme = ExtResource("1_la5c3")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_as884")
 shortcut = SubResource("Shortcut_yut8l")
 shortcut_in_tooltip = false
 text = "Play"
 script = ExtResource("1_ajyvo")
+
+[node name="ControlsButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -167.0
+offset_top = 41.0
+offset_right = 167.0
+offset_bottom = 159.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(167, 59)
+theme = ExtResource("1_la5c3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_wt4k7")
+text = "Controls"
+
+[node name="ControlsLabel" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -537.0
+offset_top = 185.0
+offset_right = 538.0
+offset_bottom = 448.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(537.5, 133.5)
+theme = SubResource("Theme_wqupr")
+text = "W / Up Arrow - jump
+A / Left Arrow - move left
+D / Right Arrow - move right
+Spacebar / J - shoot"
+horizontal_alignment = 1
+script = ExtResource("3_7v5h2")
+
+[connection signal="pressed" from="ControlsButton" to="ControlsLabel" method="_on_controls_button_pressed"]
