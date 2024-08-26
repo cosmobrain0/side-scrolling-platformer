@@ -7,12 +7,15 @@ var facing := Facing.LEFT
 var ground_check_offset := Vector2(16, 0)
 var wall_check_target_offset := Vector2(18, 0)
 var destroyed := false
+var death_animation_complete := false
+var death_animation_name = "die"
 
 @onready var ground_check: RayCast2D = $GroundCheck
 @onready var wall_check: RayCast2D = $WallCheck
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var destructor_area: Area2D = $Destructor
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var death_animation_player: AnimationPlayer = $AnimationPlayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,7 +30,9 @@ func direction() -> Vector2:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if destroyed:
-		queue_free()
+		death_animation_player.advance(delta)
+		print("Destroyed, not freed")
+		if death_animation_complete: queue_free()
 		return
 	var velocity := Vector2.ZERO
 	var ground := ground_check.is_colliding()
@@ -63,4 +68,15 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_destructor_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		SignalBus.goomba_bounced_on.emit(body)
-		destroyed = true
+		destroy()
+
+func destroy():
+	destroyed = true
+	animated_sprite.animation = "dying"
+	death_animation_player.play(death_animation_name)
+	death_animation_player.animation_finished.connect(_queue_for_free)
+
+func _queue_for_free(name: String):
+	if death_animation_name == name:
+		print("Animation Complete")
+		death_animation_complete = true
