@@ -2,7 +2,7 @@ extends Area2D
 
 enum Facing {LEFT, RIGHT}
 
-var speed := 250.0
+var speed := 500.0
 var velocity: Vector2
 var facing := Facing.LEFT
 var destroyed := false
