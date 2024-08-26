@@ -1,10 +1,46 @@
-[gd_scene load_steps=5 format=3 uid="uid://dgtv3oe6ne6s0"]
+[gd_scene load_steps=11 format=3 uid="uid://dgtv3oe6ne6s0"]
 
-[ext_resource type="Texture2D" uid="uid://s67jj0agg6jw" path="res://art/enemy-goomba.png" id="1_po8e1"]
 [ext_resource type="Script" path="res://goomba.gd" id="1_xukdf"]
+[ext_resource type="Texture2D" uid="uid://88dqryjjy0od" path="res://art/enemy-goomba_4.png" id="2_nqy1v"]
+[ext_resource type="Texture2D" uid="uid://dxsts0egepj81" path="res://art/enemy-goomba_5.png" id="3_rlrog"]
+[ext_resource type="Texture2D" uid="uid://d0i4f7ncr3rhn" path="res://art/enemy-goomba_1.png" id="4_saty5"]
+[ext_resource type="Texture2D" uid="uid://bpvqvdh7vqxm4" path="res://art/enemy-goomba_6.png" id="4_u2mmk"]
+[ext_resource type="Texture2D" uid="uid://bfystownjomm4" path="res://art/enemy-goomba_0.png" id="5_5smib"]
+[ext_resource type="Texture2D" uid="uid://b1k6lhqxt4xm4" path="res://art/enemy-goomba_2.png" id="5_d5b8c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sxsai"]
 radius = 12.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6u18q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_nqy1v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_rlrog")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_u2mmk")
+}],
+"loop": true,
+"name": &"walking-left",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_5smib")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_saty5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_d5b8c")
+}],
+"loop": true,
+"name": &"walking-right",
+"speed": 8.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7v0v5"]
 size = Vector2(24, 3)
@@ -16,9 +52,11 @@ script = ExtResource("1_xukdf")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_sxsai")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("1_po8e1")
+sprite_frames = SubResource("SpriteFrames_6u18q")
+animation = &"walking-right"
+frame_progress = 0.398465
 
 [node name="GroundCheck" type="RayCast2D" parent="."]
 position = Vector2(16, 0)
