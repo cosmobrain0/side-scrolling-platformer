@@ -2,7 +2,8 @@ extends Node2D
 
 enum Facing {LEFT, RIGHT}
 
-var levels: Array[Resource] = [preload("res://levels/level-0.tscn")]
+var levels: Array[Resource] = [preload("res://levels/level-0.tscn"), preload("res://levels/level-1.tscn")]
+var previous_level_index = -1
 @onready var previous_scene: TileMapLayer = null
 @onready var current_scene: TileMapLayer = $TileMapLayer
 @onready var next_scene: TileMapLayer
@@ -15,9 +16,23 @@ var left_bound_for_player := -50.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	next_scene = levels[0].instantiate()
+	next_scene = create_next_level()
 	next_scene.position = Vector2(1920, 0)
 	get_tree().root.add_child.call_deferred(next_scene)
+	SignalBus.game_restart.connect(_on_game_restart)
+
+func create_next_level() -> TileMapLayer:
+	var level_index := randi() % levels.size()
+	if level_index == previous_level_index:
+		level_index = (level_index + 1) % levels.size()
+	previous_level_index = level_index
+	next_scene = levels[level_index].instantiate()
+	return next_scene
+
+func _on_game_restart():
+	if previous_scene != null: previous_scene.queue_free()
+	current_scene.queue_free()
+	next_scene.queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -33,7 +48,7 @@ func _process(delta: float) -> void:
 			previous_scene.queue_free()
 		previous_scene = current_scene
 		current_scene = next_scene
-		next_scene = levels[0].instantiate()
+		next_scene = create_next_level()
 		next_scene.position = Vector2(camera_origin_x_at_last_level_spawn + 1920, 0)
 		get_tree().root.add_child.call_deferred(next_scene)
 

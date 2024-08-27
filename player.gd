@@ -3,7 +3,7 @@ extends CharacterBody2D
 enum Facing {LEFT, RIGHT}
 
 const SPEED: float = 300.0
-const JUMP_VELOCITY: float = -800.0
+const JUMP_VELOCITY: float = -600.0
 var facing := Facing.RIGHT
 var bullet_scene := preload("res://bullet.tscn")
 
