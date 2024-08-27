@@ -3,7 +3,7 @@ extends CharacterBody2D
 enum Facing {LEFT, RIGHT}
 
 const SPEED: float = 300.0
-const JUMP_VELOCITY: float = -800.0
+const JUMP_VELOCITY: float = -600.0
 var facing := Facing.RIGHT
 var bullet_scene := preload("res://bullet.tscn")
 
@@ -11,10 +11,12 @@ var can_shoot := true
 var wants_to_shoot := false
 var game_over := false
 @onready var bullet_spawn_timer = $BulletSpawnTimer
+var on_floor_last_frame := true
 
 func _ready():
 	SignalBus.player_facing_changed.emit(Facing.RIGHT)
 	SignalBus.goomba_collider_hit.connect(_on_goomba_collider_hit)
+	SignalBus.spike_hit_player.connect(_on_spike_hit_player)
 	bullet_spawn_timer.timeout.connect(_on_bullet_spawn_timer_timeout)
 
 func _on_bullet_spawn_timer_timeout():
@@ -35,8 +37,12 @@ func shoot_bullet():
 
 func _physics_process(delta: float) -> void:
 	if game_over:
+		SignalBus.game_restart.emit()
 		get_tree().reload_current_scene()
 		return
+	
+	if not on_floor_last_frame and is_on_floor():
+		SignalBus.player_landed.emit(facing)
 	
 	# Add the gravity.
 	if not is_on_floor():
@@ -50,6 +56,7 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_pressed("game_jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		SignalBus.player_jumped.emit(facing)
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -61,6 +68,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
+	on_floor_last_frame = is_on_floor()
 	move_and_slide()
 
 func set_facing(new_facing: Facing) -> void:
@@ -69,4 +77,7 @@ func set_facing(new_facing: Facing) -> void:
 		SignalBus.player_facing_changed.emit(facing)
 
 func _on_goomba_collider_hit(player: Node2D) -> void:
+	game_over = true
+
+func _on_spike_hit_player(spike: Area2D) -> void:
 	game_over = true

@@ -24,6 +24,10 @@ func _ready() -> void:
 	velocity = speed * direction()
 	particle_generator.direction = -direction()
 	animator.play("spawn_in")
+	SignalBus.game_restart.connect(_on_game_restart)
+
+func _on_game_restart() -> void:
+	queue_free()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
