@@ -11,6 +11,7 @@ var can_shoot := true
 var wants_to_shoot := false
 var game_over := false
 @onready var bullet_spawn_timer = $BulletSpawnTimer
+var on_floor_last_frame := true
 
 func _ready():
 	SignalBus.player_facing_changed.emit(Facing.RIGHT)
@@ -39,6 +40,9 @@ func _physics_process(delta: float) -> void:
 		get_tree().reload_current_scene()
 		return
 	
+	if not on_floor_last_frame and is_on_floor():
+		SignalBus.player_landed.emit(facing)
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -51,6 +55,7 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_pressed("game_jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		SignalBus.player_jumped.emit(facing)
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -62,6 +67,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
+	on_floor_last_frame = is_on_floor()
 	move_and_slide()
 
 func set_facing(new_facing: Facing) -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://82xdn7gg2742"]
+[gd_scene load_steps=20 format=3 uid="uid://82xdn7gg2742"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_negmd"]
 [ext_resource type="Texture2D" uid="uid://d2cspoa4ijh4u" path="res://art/player.png" id="1_rntcd"]
@@ -6,6 +6,30 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fy53j"]
 radius = 15.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lpysm"]
+atlas = ExtResource("1_rntcd")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ro5uy"]
+atlas = ExtResource("1_rntcd")
+region = Rect2(352, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nbj4j"]
+atlas = ExtResource("1_rntcd")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5hli7"]
+atlas = ExtResource("1_rntcd")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4cr7n"]
+atlas = ExtResource("1_rntcd")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rlk66"]
+atlas = ExtResource("1_rntcd")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dkfov"]
 atlas = ExtResource("1_rntcd")
@@ -41,6 +65,40 @@ region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5sncg"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lpysm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lpysm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lpysm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ro5uy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nbj4j")
+}],
+"loop": false,
+"name": &"jump-right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5hli7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4cr7n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rlk66")
+}],
+"loop": false,
+"name": &"land-right",
+"speed": 10.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dkfov")
@@ -97,8 +155,9 @@ shape = SubResource("CircleShape2D_fy53j")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_5sncg")
-animation = &"shoot-left"
+animation = &"land-right"
 autoplay = "look-right"
+frame_progress = 0.804743
 script = ExtResource("3_7vwa5")
 
 [node name="BulletSpawnTimer" type="Timer" parent="."]
