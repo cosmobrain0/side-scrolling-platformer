@@ -56,3 +56,4 @@ game_shoot={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.204971, 0.173417, 0.190552, 1)
