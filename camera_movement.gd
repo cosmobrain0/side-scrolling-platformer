@@ -43,13 +43,16 @@ func _process(delta: float) -> void:
 		get_tree().reload_current_scene()
 		return
 	if camera_origin_x_at_last_level_spawn + 1700 <= -camera_origin.x:
-		camera_origin_x_at_last_level_spawn += 1920
 		if previous_scene != null:
 			previous_scene.queue_free()
 		previous_scene = current_scene
 		current_scene = next_scene
 		next_scene = create_next_level()
-		next_scene.position = Vector2(camera_origin_x_at_last_level_spawn + 1920, 0)
+		previous_scene.position -= Vector2(1920, 0)
+		current_scene.position -= Vector2(1920, 0)
+		next_scene.position = Vector2(1920, 0)
+		player.position -= Vector2(1920, 0)
+		set_origin(camera_origin + Vector2(1920, 0))
 		get_tree().root.add_child.call_deferred(next_scene)
 
 func set_origin(new_origin: Vector2) -> void:
