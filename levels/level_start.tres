@@ -1,7 +1,8 @@
-[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://8htk5l4ykcu"]
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://8htk5l4ykcu"]
 
 [ext_resource type="Texture2D" uid="uid://h46mtylmcl06" path="res://art/grass-tileset.png" id="1_b4mwi"]
 [ext_resource type="PackedScene" uid="uid://dgtv3oe6ne6s0" path="res://goomba.tscn" id="2_55ks8"]
+[ext_resource type="PackedScene" uid="uid://dqog1qjfmi42h" path="res://spike.tscn" id="3_yqsc6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_38yct"]
 resource_name = "Terrain"
@@ -43,11 +44,18 @@ texture_region_size = Vector2i(32, 32)
 resource_name = "GoombaScene"
 scenes/1/scene = ExtResource("2_55ks8")
 
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_6d4c4"]
+resource_name = "SpikeScene"
+scenes/1/scene = ExtResource("3_yqsc6")
+
 [resource]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 terrain_set_0/mode = 2
 terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+custom_data_layer_0/name = "Dangerous"
+custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_38yct")
 sources/2 = SubResource("TileSetScenesCollectionSource_jo5b4")
+sources/3 = SubResource("TileSetScenesCollectionSource_6d4c4")

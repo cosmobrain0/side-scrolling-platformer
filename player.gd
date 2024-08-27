@@ -16,6 +16,7 @@ var on_floor_last_frame := true
 func _ready():
 	SignalBus.player_facing_changed.emit(Facing.RIGHT)
 	SignalBus.goomba_collider_hit.connect(_on_goomba_collider_hit)
+	SignalBus.spike_hit_player.connect(_on_spike_hit_player)
 	bullet_spawn_timer.timeout.connect(_on_bullet_spawn_timer_timeout)
 
 func _on_bullet_spawn_timer_timeout():
@@ -76,4 +77,7 @@ func set_facing(new_facing: Facing) -> void:
 		SignalBus.player_facing_changed.emit(facing)
 
 func _on_goomba_collider_hit(player: Node2D) -> void:
+	game_over = true
+
+func _on_spike_hit_player(spike: Area2D) -> void:
 	game_over = true
