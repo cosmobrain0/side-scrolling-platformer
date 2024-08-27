@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://82xdn7gg2742"]
+[gd_scene load_steps=26 format=3 uid="uid://82xdn7gg2742"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_negmd"]
 [ext_resource type="Texture2D" uid="uid://d2cspoa4ijh4u" path="res://art/player.png" id="1_rntcd"]
@@ -6,6 +6,18 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fy53j"]
 radius = 15.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ttr8a"]
+atlas = ExtResource("1_rntcd")
+region = Rect2(448, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4u4c6"]
+atlas = ExtResource("1_rntcd")
+region = Rect2(480, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbb3j"]
+atlas = ExtResource("1_rntcd")
+region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lpysm"]
 atlas = ExtResource("1_rntcd")
@@ -18,6 +30,18 @@ region = Rect2(352, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_nbj4j"]
 atlas = ExtResource("1_rntcd")
 region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_chiby"]
+atlas = ExtResource("1_rntcd")
+region = Rect2(416, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m737x"]
+atlas = ExtResource("1_rntcd")
+region = Rect2(384, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fggg4"]
+atlas = ExtResource("1_rntcd")
+region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5hli7"]
 atlas = ExtResource("1_rntcd")
@@ -67,6 +91,26 @@ region = Rect2(96, 0, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ttr8a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ttr8a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ttr8a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4u4c6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tbb3j")
+}],
+"loop": false,
+"name": &"jump-left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_lpysm")
 }, {
 "duration": 1.0,
@@ -84,6 +128,20 @@ animations = [{
 "loop": false,
 "name": &"jump-right",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_chiby")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m737x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fggg4")
+}],
+"loop": false,
+"name": &"land-left",
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -155,9 +213,8 @@ shape = SubResource("CircleShape2D_fy53j")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_5sncg")
-animation = &"land-right"
+animation = &"land-left"
 autoplay = "look-right"
-frame_progress = 0.804743
 script = ExtResource("3_7vwa5")
 
 [node name="BulletSpawnTimer" type="Timer" parent="."]

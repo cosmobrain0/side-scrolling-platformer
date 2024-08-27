@@ -20,14 +20,14 @@ func _on_player_facing_changed(new_facing: Facing) -> void:
 
 func _on_player_jumped(new_facing: Facing) -> void:
 	if new_facing == Facing.RIGHT: animation = "jump-right"
-	# TODO: else: animation = "jump-left"
+	else: animation = "jump-left"
 	current_facing = new_facing
 	frame = 0
 	play()
 
 func _on_player_landed(new_facing: Facing) -> void:
 	if new_facing == Facing.RIGHT: animation = "land-right"
-	# TODO: else: animation = "land-right"
+	else: animation = "land-left"
 	current_facing = new_facing
 	frame = 0
 	play()
