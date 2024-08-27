@@ -1,10 +1,21 @@
-[gd_scene load_steps=12 format=4 uid="uid://8bfecsanr3m1"]
+[gd_scene load_steps=24 format=4 uid="uid://8bfecsanr3m1"]
 
 [ext_resource type="Script" path="res://play_button.gd" id="1_ajyvo"]
 [ext_resource type="Theme" uid="uid://qju3ty0o5b04" path="res://main_menu.tres" id="1_la5c3"]
 [ext_resource type="Script" path="res://controls_label.gd" id="3_7v5h2"]
-[ext_resource type="Texture2D" uid="uid://ds03bn84d8daj" path="res://art/killer-water-logo.png" id="4_yvk1i"]
+[ext_resource type="Texture2D" uid="uid://bkkbni8oo7lob" path="res://art/killer-water-logo_0.png" id="4_p1v0r"]
 [ext_resource type="TileSet" uid="uid://bt0qe2g8xly52" path="res://level_start.tres" id="5_4xheo"]
+[ext_resource type="Texture2D" uid="uid://bko7iqi5grtio" path="res://art/killer-water-logo_1.png" id="5_jbb0q"]
+[ext_resource type="Texture2D" uid="uid://dim22evij0ml3" path="res://art/killer-water-logo_10.png" id="6_dun56"]
+[ext_resource type="Texture2D" uid="uid://cb10xn4pnnqfu" path="res://art/killer-water-logo_11.png" id="7_bi66t"]
+[ext_resource type="Texture2D" uid="uid://cqgys75tlouf6" path="res://art/killer-water-logo_2.png" id="8_j3alp"]
+[ext_resource type="Texture2D" uid="uid://hb0mqymgu3sd" path="res://art/killer-water-logo_3.png" id="9_h1gap"]
+[ext_resource type="Texture2D" uid="uid://fgu7nek3q0fr" path="res://art/killer-water-logo_4.png" id="10_abylv"]
+[ext_resource type="Texture2D" uid="uid://brnxd2lur8gie" path="res://art/killer-water-logo_5.png" id="11_kgcfr"]
+[ext_resource type="Texture2D" uid="uid://r7jl4jyulnh3" path="res://art/killer-water-logo_6.png" id="12_6gmsc"]
+[ext_resource type="Texture2D" uid="uid://bg05vw7tjrgb8" path="res://art/killer-water-logo_7.png" id="13_f1a7d"]
+[ext_resource type="Texture2D" uid="uid://bsiqi45s4dsiw" path="res://art/killer-water-logo_8.png" id="14_q0fq2"]
+[ext_resource type="Texture2D" uid="uid://v5y5y7jccvdo" path="res://art/killer-water-logo_9.png" id="15_7yvm7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_as884"]
 
@@ -25,6 +36,41 @@ events = [SubResource("InputEventKey_booig"), SubResource("InputEventKey_plxsm")
 [sub_resource type="Theme" id="Theme_wqupr"]
 default_base_scale = 80.0
 default_font_size = 45
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_nswle"]
+frames = 16
+speed_scale = 12.0
+frame_0/texture = ExtResource("4_p1v0r")
+frame_1/texture = ExtResource("5_jbb0q")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("8_j3alp")
+frame_2/duration = 1.0
+frame_3/texture = ExtResource("9_h1gap")
+frame_3/duration = 1.0
+frame_4/texture = ExtResource("10_abylv")
+frame_4/duration = 1.0
+frame_5/texture = ExtResource("11_kgcfr")
+frame_5/duration = 1.0
+frame_6/texture = ExtResource("12_6gmsc")
+frame_6/duration = 1.0
+frame_7/texture = ExtResource("13_f1a7d")
+frame_7/duration = 1.0
+frame_8/texture = ExtResource("14_q0fq2")
+frame_8/duration = 1.0
+frame_9/texture = ExtResource("15_7yvm7")
+frame_9/duration = 1.0
+frame_10/texture = ExtResource("6_dun56")
+frame_10/duration = 1.0
+frame_11/texture = ExtResource("7_bi66t")
+frame_11/duration = 1.0
+frame_12/texture = ExtResource("4_p1v0r")
+frame_12/duration = 1.0
+frame_13/texture = ExtResource("4_p1v0r")
+frame_13/duration = 1.0
+frame_14/texture = ExtResource("4_p1v0r")
+frame_14/duration = 1.0
+frame_15/texture = ExtResource("4_p1v0r")
+frame_15/duration = 1.0
 
 [node name="Main Menu" type="Control"]
 layout_mode = 3
@@ -106,7 +152,7 @@ offset_bottom = 289.0
 grow_horizontal = 2
 scale = Vector2(6.845, 6.845)
 pivot_offset = Vector2(96, 32)
-texture = ExtResource("4_yvk1i")
+texture = SubResource("AnimatedTexture_nswle")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 z_index = -2
