@@ -9,7 +9,7 @@ var previous_level_index = -1
 @onready var next_scene: TileMapLayer
 @onready var player := $Player
 var camera_origin := Vector2.ZERO
-var movement_speed := 200.0
+var movement_speed := 0.0
 var left_bound_for_player := -50.0
 
 @onready var camera_origin_x_at_last_level_spawn := 0.0
