@@ -9,3 +9,5 @@ an endless 2D side scrolling platformer where you have to kill enemies and navig
   - spike enemies which stay still and hurt you, and can't be killed
   - projectile enemies which move like goombas until they see you, in which case they pause and shoot projectiles at regular intervals
 - player health system with a healthbar
+
+I'm hoping to finish this by Monday, 2nd September.
