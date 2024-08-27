@@ -24,6 +24,7 @@ func _process(delta: float) -> void:
 	set_origin(camera_origin - Vector2(movement_speed * delta, 0))
 	var screen_player_pos: Vector2 = get_viewport().get_screen_transform() * get_global_transform_with_canvas() * player.position
 	if screen_player_pos.x <= left_bound_for_player:
+		SignalBus.game_restart.emit()
 		get_tree().reload_current_scene()
 		return
 	if camera_origin_x_at_last_level_spawn + 1700 <= -camera_origin.x:

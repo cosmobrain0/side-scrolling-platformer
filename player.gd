@@ -35,6 +35,7 @@ func shoot_bullet():
 
 func _physics_process(delta: float) -> void:
 	if game_over:
+		SignalBus.game_restart.emit()
 		get_tree().reload_current_scene()
 		return
 	
