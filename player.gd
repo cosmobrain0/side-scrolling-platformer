@@ -20,12 +20,19 @@ var spike_damage := 0.4
 var invincible := false
 @onready var invincibility_timer = $InvincibilityTimer
 
+var being_pushed_back := false
+@onready var push_back_timer = $PushBackTimer
+var push_back_direction: Facing
+const push_back_force := 300.0
+const push_back_jump_force := -100.0
+
 func _ready():
 	SignalBus.player_facing_changed.emit(Facing.RIGHT)
 	SignalBus.goomba_collider_hit.connect(_on_goomba_collider_hit)
 	SignalBus.spike_hit_player.connect(_on_spike_hit_player)
 	bullet_spawn_timer.timeout.connect(_on_bullet_spawn_timer_timeout)
 	invincibility_timer.timeout.connect(_on_invincibility_timer_timeout)
+	push_back_timer.timeout.connect(_on_push_back_timer_timeout)
 
 func _on_bullet_spawn_timer_timeout():
 	if wants_to_shoot:
@@ -75,6 +82,14 @@ func _physics_process(delta: float) -> void:
 		else: set_facing(Facing.LEFT)
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+	
+	if being_pushed_back:
+		if push_back_direction == Facing.LEFT:
+			set_facing(Facing.RIGHT)
+			velocity.x = -push_back_force
+		else:
+			set_facing(Facing.LEFT)
+			velocity.x = push_back_force
 
 	on_floor_last_frame = is_on_floor()
 	move_and_slide()
@@ -90,6 +105,10 @@ func _on_goomba_collider_hit(player: Node2D) -> void:
 func _on_spike_hit_player(spike: Area2D) -> void:
 	change_health(-spike_damage)
 
+func opposite_facing(facing: Facing) -> Facing:
+	if facing == Facing.LEFT: return Facing.RIGHT
+	else: return Facing.LEFT
+
 func change_health(change: float) -> void:
 	if not invincible:
 		var old_health := health
@@ -101,9 +120,19 @@ func change_health(change: float) -> void:
 		invincible = true
 		SignalBus.player_invincible.emit()
 		
+		push_back_direction = opposite_facing(facing)
+		being_pushed_back = true
+		push_back_timer.paused = false
+		push_back_timer.start()
+		velocity.y = push_back_jump_force
+		SignalBus.player_jumped.emit(facing)
+		
 		if health <= 0.0:
 			game_over = true
 
 func _on_invincibility_timer_timeout():
 	invincible = false
 	SignalBus.player_not_invincible.emit()
+
+func _on_push_back_timer_timeout():
+	being_pushed_back = false
