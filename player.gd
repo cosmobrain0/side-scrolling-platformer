@@ -17,11 +17,15 @@ var health := 1.0
 var goomba_damage := 0.2
 var spike_damage := 0.4
 
+var invincible := false
+@onready var invincibility_timer = $InvincibilityTimer
+
 func _ready():
 	SignalBus.player_facing_changed.emit(Facing.RIGHT)
 	SignalBus.goomba_collider_hit.connect(_on_goomba_collider_hit)
 	SignalBus.spike_hit_player.connect(_on_spike_hit_player)
 	bullet_spawn_timer.timeout.connect(_on_bullet_spawn_timer_timeout)
+	invincibility_timer.timeout.connect(_on_invincibility_timer_timeout)
 
 func _on_bullet_spawn_timer_timeout():
 	if wants_to_shoot:
@@ -87,6 +91,14 @@ func _on_spike_hit_player(spike: Area2D) -> void:
 	change_health(-spike_damage)
 
 func change_health(change: float) -> void:
-	var old_health := health
-	health = clampf(health + change, 0.0, 1.0)
-	SignalBus.player_health_changed.emit(old_health, health)
+	if not invincible:
+		var old_health := health
+		health = clampf(health + change, 0.0, 1.0)
+		SignalBus.player_health_changed.emit(old_health, health)
+		
+		invincibility_timer.paused = false
+		invincibility_timer.start()
+		invincible = true
+
+func _on_invincibility_timer_timeout():
+	invincible = false

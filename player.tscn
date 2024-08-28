@@ -220,3 +220,7 @@ script = ExtResource("3_7vwa5")
 [node name="BulletSpawnTimer" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
+
+[node name="InvincibilityTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
