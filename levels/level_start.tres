@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://h46mtylmcl06" path="res://art/grass-tileset.png" id="1_b4mwi"]
 [ext_resource type="PackedScene" uid="uid://dgtv3oe6ne6s0" path="res://goomba.tscn" id="2_55ks8"]
-[ext_resource type="PackedScene" path="res://spike.tscn" id="3_yqsc6"]
+[ext_resource type="PackedScene" uid="uid://cfgsd8daqm8ku" path="res://spike.tscn" id="3_yqsc6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xp2wq"]
 texture = ExtResource("1_b4mwi")
