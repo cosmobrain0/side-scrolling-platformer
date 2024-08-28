@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://df4kunsqsl0ec"]
+[gd_scene load_steps=7 format=3 uid="uid://df4kunsqsl0ec"]
 
 [ext_resource type="PackedScene" uid="uid://crbea4m5tlvro" path="res://level_start.tscn" id="1_k8cs1"]
 [ext_resource type="Script" path="res://camera_movement.gd" id="1_xx8kd"]
 [ext_resource type="PackedScene" uid="uid://82xdn7gg2742" path="res://player.tscn" id="2_4ltir"]
 [ext_resource type="PackedScene" uid="uid://critvxogiws60" path="res://health_bar.tscn" id="4_7tdey"]
+[ext_resource type="Texture2D" uid="uid://bsc5wml484nse" path="res://art/home.png" id="5_imjjt"]
+[ext_resource type="Script" path="res://home_button.gd" id="6_5qsqf"]
 
 [node name="Node2D" type="Node2D"]
 texture_filter = 1
@@ -15,3 +17,14 @@ script = ExtResource("1_xx8kd")
 position = Vector2(438, 483)
 
 [node name="Control" parent="." instance=ExtResource("4_7tdey")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="TextureButton" parent="CanvasLayer"]
+offset_left = 128.0
+offset_top = 16.0
+offset_right = 224.0
+offset_bottom = 112.0
+texture_normal = ExtResource("5_imjjt")
+stretch_mode = 0
+script = ExtResource("6_5qsqf")
