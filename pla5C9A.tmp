@@ -218,12 +218,12 @@ autoplay = "look-right"
 script = ExtResource("3_7vwa5")
 
 [node name="ModulateSwapTimer" type="Timer" parent="AnimatedSprite2D"]
-wait_time = 0.188
+wait_time = 0.2
 
 [node name="BulletSpawnTimer" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
 
 [node name="InvincibilityTimer" type="Timer" parent="."]
-wait_time = 1.5
+wait_time = 0.5
 one_shot = true

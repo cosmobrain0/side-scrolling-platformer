@@ -99,9 +99,11 @@ func change_health(change: float) -> void:
 		invincibility_timer.paused = false
 		invincibility_timer.start()
 		invincible = true
+		SignalBus.player_invincible.emit()
 		
 		if health <= 0.0:
 			game_over = true
 
 func _on_invincibility_timer_timeout():
 	invincible = false
+	SignalBus.player_not_invincible.emit()
