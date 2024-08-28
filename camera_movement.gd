@@ -20,6 +20,7 @@ func _ready() -> void:
 	next_scene.position = Vector2(1920, 0)
 	get_tree().root.add_child.call_deferred(next_scene)
 	SignalBus.game_restart.connect(_on_game_restart)
+	SignalBus.leaving_game.connect(_on_leaving_game)
 
 func create_next_level() -> TileMapLayer:
 	var level_index := randi() % levels.size()
@@ -64,3 +65,9 @@ func set_origin(new_origin: Vector2) -> void:
 	get_viewport().set_canvas_transform(Transform2D(0, camera_origin))
 	if changed:
 		SignalBus.camera_moved.emit(-old_origin, -camera_origin)
+
+func _on_leaving_game():
+	if previous_scene != null: previous_scene.queue_free()
+	current_scene.queue_free()
+	next_scene.queue_free()
+	set_origin(Vector2.ZERO)
