@@ -213,7 +213,7 @@ shape = SubResource("CircleShape2D_fy53j")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_5sncg")
-animation = &"land-left"
+animation = &"look-right"
 autoplay = "look-right"
 script = ExtResource("3_7vwa5")
 
