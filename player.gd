@@ -13,6 +13,10 @@ var game_over := false
 @onready var bullet_spawn_timer = $BulletSpawnTimer
 var on_floor_last_frame := true
 
+var health := 1.0
+var goomba_damage := 0.2
+var spike_damage := 0.4
+
 func _ready():
 	SignalBus.player_facing_changed.emit(Facing.RIGHT)
 	SignalBus.goomba_collider_hit.connect(_on_goomba_collider_hit)
@@ -77,7 +81,12 @@ func set_facing(new_facing: Facing) -> void:
 		SignalBus.player_facing_changed.emit(facing)
 
 func _on_goomba_collider_hit(player: Node2D) -> void:
-	game_over = true
+	change_health(-goomba_damage)
 
 func _on_spike_hit_player(spike: Area2D) -> void:
-	game_over = true
+	change_health(-spike_damage)
+
+func change_health(change: float) -> void:
+	var old_health := health
+	health = clamp(health-change, 0.0, 1.0)
+	SignalBus.player_health_changed.emit(old_health, health)
