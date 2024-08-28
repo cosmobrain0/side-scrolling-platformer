@@ -33,6 +33,7 @@ func _on_game_restart():
 	if previous_scene != null: previous_scene.queue_free()
 	current_scene.queue_free()
 	next_scene.queue_free()
+	set_origin(Vector2(0, 0))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
