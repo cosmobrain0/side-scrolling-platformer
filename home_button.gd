@@ -8,6 +8,7 @@ func _ready() -> void:
 
 func _on_pressed():
 	SignalBus.leaving_game.emit()
+	get_tree().paused = false
 	get_tree().change_scene_to_packed(game)
 
 
