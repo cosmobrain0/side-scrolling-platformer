@@ -21,4 +21,10 @@ func _on_score_changed(old_score: float, new_score: float) -> void:
 
 func set_current_score(new_score: float):
 	current_score = new_score
-	text = "[b]Score[/b]: %s\n[b]High Score[/b]: %s" % [str(floorf(new_score)), str(floorf(SignalBus.high_score))]
+	update_text()
+
+func update_text():
+	if target_score != current_score:
+		var delta := target_score - current_score
+		text = "[b]Score[/b]: [color=green](%s+)[/color] %s\n[b]High Score[/b]: %s" % [str(floorf(delta)), str(floorf(current_score)), str(floorf(ScoreManager.high_score))]
+	else: text = "[b]Score[/b]: %s\n[b]High Score[/b]: %s" % [str(floorf(current_score)), str(floorf(ScoreManager.high_score))]
