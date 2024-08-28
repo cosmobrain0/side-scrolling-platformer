@@ -38,6 +38,8 @@ func _on_game_restart():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	set_origin(camera_origin - Vector2(movement_speed * delta, 0))
+	if player.global_position.x + camera_origin.x >= 1200:
+		set_origin(camera_origin - Vector2(player.global_position.x + camera_origin.x - 1200, 0))
 	if player.global_position.x <= -camera_origin.x + left_bound_for_player:
 		SignalBus.game_restart.emit()
 		get_tree().reload_current_scene()
