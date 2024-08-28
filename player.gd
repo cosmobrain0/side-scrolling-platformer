@@ -9,7 +9,9 @@ var bullet_scene := preload("res://bullet.tscn")
 
 var can_shoot := true
 var wants_to_shoot := false
+var player_lost := false
 var game_over := false
+@onready var animation_player = $AnimationPlayer
 @onready var bullet_spawn_timer = $BulletSpawnTimer
 var on_floor_last_frame := true
 
@@ -51,9 +53,10 @@ func shoot_bullet():
 	bullet_spawn_timer.start()
 
 func _physics_process(delta: float) -> void:
-	if game_over:
-		SignalBus.game_restart.emit()
-		get_tree().reload_current_scene()
+	if player_lost:
+		if game_over:
+			SignalBus.game_restart.emit()
+			get_tree().reload_current_scene()
 		return
 	
 	if not on_floor_last_frame and is_on_floor():
@@ -125,10 +128,19 @@ func change_health(change: float) -> void:
 		push_back_timer.paused = false
 		push_back_timer.start()
 		velocity.y = push_back_jump_force
-		SignalBus.player_jumped.emit(facing)
 		
 		if health <= 0.0:
-			game_over = true
+			set_player_lost_true()
+
+func set_player_lost_true():
+	player_lost = true
+	SignalBus.player_lost.emit()
+	# animated_sprite.animation = "dying"
+	animation_player.play("die")
+	animation_player.animation_finished.connect(_on_game_over)
+
+func _on_game_over(name: String):
+	if name == "die": game_over = true
 
 func _on_invincibility_timer_timeout():
 	invincible = false
