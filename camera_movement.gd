@@ -57,5 +57,9 @@ func _process(delta: float) -> void:
 		get_tree().root.add_child.call_deferred(next_scene)
 
 func set_origin(new_origin: Vector2) -> void:
+	var changed := camera_origin != new_origin
+	var old_origin := camera_origin	
 	camera_origin = new_origin
 	get_viewport().set_canvas_transform(Transform2D(0, camera_origin))
+	if changed:
+		SignalBus.camera_moved.emit(-old_origin, -camera_origin)

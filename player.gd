@@ -9,15 +9,32 @@ var bullet_scene := preload("res://bullet.tscn")
 
 var can_shoot := true
 var wants_to_shoot := false
+var player_lost := false
 var game_over := false
+@onready var animation_player = $AnimationPlayer
 @onready var bullet_spawn_timer = $BulletSpawnTimer
 var on_floor_last_frame := true
+
+var health := 1.0
+var goomba_damage := 0.2
+var spike_damage := 0.4
+
+var invincible := false
+@onready var invincibility_timer = $InvincibilityTimer
+
+var being_pushed_back := false
+@onready var push_back_timer = $PushBackTimer
+var push_back_direction: Facing
+const push_back_force := 300.0
+const push_back_jump_force := -100.0
 
 func _ready():
 	SignalBus.player_facing_changed.emit(Facing.RIGHT)
 	SignalBus.goomba_collider_hit.connect(_on_goomba_collider_hit)
 	SignalBus.spike_hit_player.connect(_on_spike_hit_player)
 	bullet_spawn_timer.timeout.connect(_on_bullet_spawn_timer_timeout)
+	invincibility_timer.timeout.connect(_on_invincibility_timer_timeout)
+	push_back_timer.timeout.connect(_on_push_back_timer_timeout)
 
 func _on_bullet_spawn_timer_timeout():
 	if wants_to_shoot:
@@ -36,9 +53,10 @@ func shoot_bullet():
 	bullet_spawn_timer.start()
 
 func _physics_process(delta: float) -> void:
-	if game_over:
-		SignalBus.game_restart.emit()
-		get_tree().reload_current_scene()
+	if player_lost:
+		if game_over:
+			SignalBus.game_restart.emit()
+			get_tree().reload_current_scene()
 		return
 	
 	if not on_floor_last_frame and is_on_floor():
@@ -67,6 +85,14 @@ func _physics_process(delta: float) -> void:
 		else: set_facing(Facing.LEFT)
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+	
+	if being_pushed_back:
+		if push_back_direction == Facing.LEFT:
+			set_facing(Facing.RIGHT)
+			velocity.x = -push_back_force
+		else:
+			set_facing(Facing.LEFT)
+			velocity.x = push_back_force
 
 	on_floor_last_frame = is_on_floor()
 	move_and_slide()
@@ -77,7 +103,48 @@ func set_facing(new_facing: Facing) -> void:
 		SignalBus.player_facing_changed.emit(facing)
 
 func _on_goomba_collider_hit(player: Node2D) -> void:
-	game_over = true
+	change_health(-goomba_damage)
 
 func _on_spike_hit_player(spike: Area2D) -> void:
-	game_over = true
+	change_health(-spike_damage)
+
+func opposite_facing(facing: Facing) -> Facing:
+	if facing == Facing.LEFT: return Facing.RIGHT
+	else: return Facing.LEFT
+
+func change_health(change: float) -> void:
+	if not invincible:
+		var old_health := health
+		health = clampf(health + change, 0.0, 1.0)
+		SignalBus.player_health_changed.emit(old_health, health)
+		
+		invincibility_timer.paused = false
+		invincibility_timer.start()
+		invincible = true
+		SignalBus.player_invincible.emit()
+		
+		push_back_direction = opposite_facing(facing)
+		being_pushed_back = true
+		push_back_timer.paused = false
+		push_back_timer.start()
+		velocity.y = push_back_jump_force
+		
+		if health <= 0.0:
+			set_player_lost_true()
+
+func set_player_lost_true():
+	player_lost = true
+	SignalBus.player_lost.emit()
+	# animated_sprite.animation = "dying"
+	animation_player.play("die")
+	animation_player.animation_finished.connect(_on_game_over)
+
+func _on_game_over(name: String):
+	if name == "die": game_over = true
+
+func _on_invincibility_timer_timeout():
+	invincible = false
+	SignalBus.player_not_invincible.emit()
+
+func _on_push_back_timer_timeout():
+	being_pushed_back = false
