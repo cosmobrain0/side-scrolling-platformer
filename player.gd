@@ -88,5 +88,5 @@ func _on_spike_hit_player(spike: Area2D) -> void:
 
 func change_health(change: float) -> void:
 	var old_health := health
-	health = clamp(health-change, 0.0, 1.0)
+	health = clampf(health + change, 0.0, 1.0)
 	SignalBus.player_health_changed.emit(old_health, health)
