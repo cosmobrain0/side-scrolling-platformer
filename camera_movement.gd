@@ -79,6 +79,8 @@ func _process(delta: float) -> void:
 			bullet.position -= Vector2(1920, 0)
 		for projectile in get_tree().get_nodes_in_group("projectiles"):
 			projectile.position -= Vector2(1920, 0)
+		for power_up in get_tree().get_nodes_in_group("power-ups"):
+			power_up.position -= Vector2(1920, 0)
 		set_origin(camera_origin + Vector2(1920, 0))
 		get_tree().root.add_child.call_deferred(next_scene)
 
