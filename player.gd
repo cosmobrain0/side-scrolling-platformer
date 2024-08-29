@@ -36,6 +36,7 @@ func _ready():
 	SignalBus.spike_hit_player.connect(_on_spike_hit_player)
 	SignalBus.fire_projectile_hit_player.connect(_on_fire_projectile_hit_player)
 	SignalBus.projectile_enemy_hit.connect(_on_projectile_enemy_hit_player)
+	SignalBus.time_slow_deactivated.emit()
 	bullet_spawn_timer.timeout.connect(_on_bullet_spawn_timer_timeout)
 	invincibility_timer.timeout.connect(_on_invincibility_timer_timeout)
 	push_back_timer.timeout.connect(_on_push_back_timer_timeout)

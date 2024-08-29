@@ -9,8 +9,15 @@ var previous_level_index = -1
 @onready var next_scene: TileMapLayer
 @onready var player := $Player
 var camera_origin := Vector2.ZERO
-var movement_speed := 200.0
+const normal_movement_speed := 200.0
+const slow_movement_speed := 50.0
+var movement_speed := normal_movement_speed
 var left_bound_for_player := -50.0
+var time_of_time_slow := 0.0
+var time_slow_duration := 5000.0
+
+func time_slow_active() -> bool:
+	return movement_speed == slow_movement_speed
 
 @onready var camera_origin_x_at_last_level_spawn := 0.0
 
@@ -21,6 +28,15 @@ func _ready() -> void:
 	get_tree().root.add_child.call_deferred(next_scene)
 	SignalBus.game_restart.connect(_on_game_restart)
 	SignalBus.leaving_game.connect(_on_leaving_game)
+	SignalBus.time_slow_activated.connect(_on_time_slow_activated)
+	SignalBus.time_slow_deactivated.connect(_on_time_slow_deactivated)
+
+func _on_time_slow_activated():
+	movement_speed = slow_movement_speed
+	time_of_time_slow = Time.get_ticks_msec()
+
+func _on_time_slow_deactivated():
+	movement_speed = normal_movement_speed
 
 func create_next_level() -> TileMapLayer:
 	var level_index := randi() % levels.size()
@@ -39,6 +55,10 @@ func _on_game_restart():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	set_origin(camera_origin - Vector2(movement_speed * delta, 0))
+	
+	if time_slow_active() && Time.get_ticks_msec() - time_of_time_slow >= time_slow_duration:
+		SignalBus.time_slow_deactivated.emit()
+	
 	if player.global_position.x + camera_origin.x >= 1200:
 		set_origin(camera_origin - Vector2(player.global_position.x + camera_origin.x - 1200, 0))
 	if player.global_position.x <= -camera_origin.x + left_bound_for_player:
