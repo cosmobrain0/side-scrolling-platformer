@@ -149,7 +149,7 @@ func change_health(change: float, push_back_direction: Facing) -> void:
 			if health <= 0.0:
 				set_player_lost_true()
 	else:
-		health = clampf(health+change, 0.0, 10)
+		health = clampf(health+change, 0.0, 1.0)
 		SignalBus.player_health_changed.emit(old_health, health)
 
 func set_player_lost_true():
