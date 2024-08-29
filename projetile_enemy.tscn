@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://cvuwgi78hdkhj"]
+[gd_scene load_steps=5 format=3 uid="uid://cvuwgi78hdkhj"]
 
+[ext_resource type="Script" path="res://projetile_enemy.gd" id="1_dbco8"]
 [ext_resource type="Texture2D" uid="uid://uasepabxn0bc" path="res://art/fire.png" id="1_idano"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gyrdj"]
@@ -17,6 +18,7 @@ animations = [{
 }]
 
 [node name="Area2D" type="Area2D"]
+script = ExtResource("1_dbco8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 8.13)
@@ -25,3 +27,6 @@ shape = SubResource("CircleShape2D_gyrdj")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_3adhi")
+
+[node name="ShootTimer" type="Timer" parent="."]
+autostart = true

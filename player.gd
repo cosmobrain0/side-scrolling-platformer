@@ -16,8 +16,9 @@ var game_over := false
 var on_floor_last_frame := true
 
 var health := 1.0
-var goomba_damage := 0.2
-var spike_damage := 0.4
+const goomba_damage := 0.2
+const spike_damage := 0.4
+const fire_projectile_damage := 0.2
 
 var invincible := false
 @onready var invincibility_timer = $InvincibilityTimer
@@ -32,6 +33,7 @@ func _ready():
 	SignalBus.player_facing_changed.emit(Facing.RIGHT)
 	SignalBus.goomba_collider_hit.connect(_on_goomba_collider_hit)
 	SignalBus.spike_hit_player.connect(_on_spike_hit_player)
+	SignalBus.fire_projectile_hit_player.connect(_on_fire_projectile_hit_player)
 	bullet_spawn_timer.timeout.connect(_on_bullet_spawn_timer_timeout)
 	invincibility_timer.timeout.connect(_on_invincibility_timer_timeout)
 	push_back_timer.timeout.connect(_on_push_back_timer_timeout)
@@ -104,6 +106,10 @@ func set_facing(new_facing: Facing) -> void:
 
 func _on_goomba_collider_hit(player: Node2D) -> void:
 	change_health(-goomba_damage)
+
+func _on_fire_projectile_hit_player(projectile: Area2D) -> void:
+	print("Received signal: %s" % -fire_projectile_damage)
+	change_health(-fire_projectile_damage)
 
 func _on_spike_hit_player(spike: Area2D) -> void:
 	change_health(-spike_damage)

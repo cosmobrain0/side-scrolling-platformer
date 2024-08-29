@@ -27,6 +27,10 @@ window/size/viewport_height=1080
 window/size/initial_position_type=4
 window/stretch/mode="viewport"
 
+[global_group]
+
+projectiles="Fire projectiles shot but the fire enemy"
+
 [input]
 
 game_left={
