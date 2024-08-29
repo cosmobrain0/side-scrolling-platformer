@@ -9,8 +9,7 @@ var previous_level_index = -1
 @onready var next_scene: TileMapLayer
 @onready var player := $Player
 var camera_origin := Vector2.ZERO
-# FIXME: this is a temporary test
-var movement_speed := 200.0 * 0.0
+var movement_speed := 200.0
 var left_bound_for_player := -50.0
 
 @onready var camera_origin_x_at_last_level_spawn := 0.0
@@ -58,6 +57,8 @@ func _process(delta: float) -> void:
 		player.position -= Vector2(1920, 0)
 		for bullet in get_tree().get_nodes_in_group("bullets"):
 			bullet.position -= Vector2(1920, 0)
+		for projectile in get_tree().get_nodes_in_group("projectiles"):
+			projectile.position -= Vector2(1920, 0)
 		set_origin(camera_origin + Vector2(1920, 0))
 		get_tree().root.add_child.call_deferred(next_scene)
 

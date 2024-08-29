@@ -8,6 +8,5 @@ func _ready() -> void:
 
 func _on_pressed():
 	var new_paused := not get_tree().paused
-	print(new_paused)
 	get_tree().paused = new_paused
 	pause_menu.visible = new_paused
