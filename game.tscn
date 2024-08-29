@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://df4kunsqsl0ec"]
+[gd_scene load_steps=11 format=4 uid="uid://df4kunsqsl0ec"]
 
 [ext_resource type="PackedScene" uid="uid://crbea4m5tlvro" path="res://level_start.tscn" id="1_k8cs1"]
 [ext_resource type="Script" path="res://camera_movement.gd" id="1_xx8kd"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://home_button.gd" id="6_5qsqf"]
 [ext_resource type="Script" path="res://pause_button.gd" id="6_lxluk"]
 [ext_resource type="Texture2D" uid="uid://bp188smveek4c" path="res://art/pause.png" id="7_dyth0"]
+[ext_resource type="PackedScene" uid="uid://c5xeu2wjd30ma" path="res://time_slow_indication_ui.tscn" id="10_0kn8r"]
 
 [node name="Node2D" type="Node2D"]
 texture_filter = 1
@@ -77,3 +78,9 @@ grow_vertical = 2
 texture_normal = ExtResource("5_imjjt")
 stretch_mode = 0
 script = ExtResource("6_5qsqf")
+
+[node name="TimeSlowIndication" parent="CanvasLayer" instance=ExtResource("10_0kn8r")]
+offset_left = 960.0
+offset_top = 16.0
+offset_right = 960.0
+offset_bottom = 16.0
