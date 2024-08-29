@@ -27,4 +27,4 @@ func _on_body_entered(body: Node2D):
 	queue_free()
 
 func _on_grow_animation_finished():
-	animated_sprite.animation = "default"
+	animated_sprite.play("default")
