@@ -37,6 +37,7 @@ func _ready():
 	SignalBus.fire_projectile_hit_player.connect(_on_fire_projectile_hit_player)
 	SignalBus.projectile_enemy_hit.connect(_on_projectile_enemy_hit_player)
 	SignalBus.time_slow_deactivated.emit()
+	SignalBus.health_increase_activated.connect(_on_player_health_increase)
 	bullet_spawn_timer.timeout.connect(_on_bullet_spawn_timer_timeout)
 	invincibility_timer.timeout.connect(_on_invincibility_timer_timeout)
 	push_back_timer.timeout.connect(_on_push_back_timer_timeout)
@@ -128,24 +129,28 @@ func opposite_facing(facing: Facing) -> Facing:
 	else: return Facing.LEFT
 
 func change_health(change: float, push_back_direction: Facing) -> void:
-	if not invincible:
-		var old_health := health
-		health = clampf(health + change, 0.0, 1.0)
+	var old_health := health
+	if change < 0.0:
+		if not invincible:
+			health = clampf(health + change, 0.0, 1.0)
+			SignalBus.player_health_changed.emit(old_health, health)
+			
+			invincibility_timer.paused = false
+			invincibility_timer.start()
+			invincible = true
+			SignalBus.player_invincible.emit()
+			
+			self.push_back_direction = push_back_direction
+			being_pushed_back = true
+			push_back_timer.paused = false
+			push_back_timer.start()
+			velocity.y = push_back_jump_force
+			
+			if health <= 0.0:
+				set_player_lost_true()
+	else:
+		health = clampf(health+change, 0.0, 10)
 		SignalBus.player_health_changed.emit(old_health, health)
-		
-		invincibility_timer.paused = false
-		invincibility_timer.start()
-		invincible = true
-		SignalBus.player_invincible.emit()
-		
-		self.push_back_direction = push_back_direction
-		being_pushed_back = true
-		push_back_timer.paused = false
-		push_back_timer.start()
-		velocity.y = push_back_jump_force
-		
-		if health <= 0.0:
-			set_player_lost_true()
 
 func set_player_lost_true():
 	player_lost = true
@@ -163,3 +168,6 @@ func _on_invincibility_timer_timeout():
 
 func _on_push_back_timer_timeout():
 	being_pushed_back = false
+
+func _on_player_health_increase():
+	change_health(1.0, facing)

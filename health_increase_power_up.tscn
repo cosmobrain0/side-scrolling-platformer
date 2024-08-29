@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://dw8t1tdeaiymp"]
+
+[ext_resource type="Script" path="res://health_increase_power_up.gd" id="1_p1f87"]
+[ext_resource type="Texture2D" uid="uid://w3ocne4a1ned" path="res://art/power-up-background.png" id="2_p5va5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bii7r"]
+size = Vector2(30, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qhekm"]
+atlas = ExtResource("2_p5va5")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2nw3i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qhekm")
+}],
+"loop": true,
+"name": &"health-increase",
+"speed": 5.0
+}]
+
+[node name="HealthIncreasePowerUp" type="Area2D"]
+texture_filter = 1
+collision_mask = 3
+script = ExtResource("1_p1f87")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_bii7r")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_2nw3i")
+animation = &"health-increase"

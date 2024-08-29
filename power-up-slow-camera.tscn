@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cy7e8noipb1dv"]
+[gd_scene load_steps=6 format=3 uid="uid://cy7e8noipb1dv"]
 
 [ext_resource type="Texture2D" uid="uid://w3ocne4a1ned" path="res://art/power-up-background.png" id="1_d7uks"]
 [ext_resource type="Script" path="res://power_up_slow_camera.gd" id="1_vhayq"]
@@ -6,14 +6,18 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bii7r"]
 size = Vector2(30, 30)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_7jacn"]
+atlas = ExtResource("1_d7uks")
+region = Rect2(0, 0, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_2nw3i"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_d7uks")
+"texture": SubResource("AtlasTexture_7jacn")
 }],
 "loop": true,
-"name": &"default",
+"name": &"time-slow",
 "speed": 5.0
 }]
 
@@ -27,3 +31,4 @@ shape = SubResource("RectangleShape2D_bii7r")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_2nw3i")
+animation = &"time-slow"
