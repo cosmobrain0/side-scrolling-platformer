@@ -55,6 +55,8 @@ func _process(delta: float) -> void:
 		current_scene.position -= Vector2(1920, 0)
 		next_scene.position = Vector2(1920, 0)
 		player.position -= Vector2(1920, 0)
+		for bullet in get_tree().get_nodes_in_group("bullets"):
+			bullet.position -= Vector2(1920, 0)
 		set_origin(camera_origin + Vector2(1920, 0))
 		get_tree().root.add_child.call_deferred(next_scene)
 
