@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://df4kunsqsl0ec"]
+[gd_scene load_steps=10 format=3 uid="uid://df4kunsqsl0ec"]
 
 [ext_resource type="PackedScene" uid="uid://crbea4m5tlvro" path="res://level_start.tscn" id="1_k8cs1"]
 [ext_resource type="Script" path="res://camera_movement.gd" id="1_xx8kd"]
 [ext_resource type="PackedScene" uid="uid://82xdn7gg2742" path="res://player.tscn" id="2_4ltir"]
 [ext_resource type="PackedScene" uid="uid://critvxogiws60" path="res://health_bar.tscn" id="4_7tdey"]
 [ext_resource type="PackedScene" uid="uid://df8y0def041qc" path="res://score_data.tscn" id="5_2xv7x"]
+[ext_resource type="Texture2D" uid="uid://bsc5wml484nse" path="res://art/home.png" id="5_imjjt"]
+[ext_resource type="Script" path="res://home_button.gd" id="6_5qsqf"]
+[ext_resource type="Script" path="res://pause_button.gd" id="6_lxluk"]
+[ext_resource type="Texture2D" uid="uid://bp188smveek4c" path="res://art/pause.png" id="7_dyth0"]
 
 [node name="Node2D" type="Node2D"]
 texture_filter = 1
@@ -24,3 +28,49 @@ offset_left = 913.0
 offset_top = 5.0
 offset_right = 913.0
 offset_bottom = 5.0
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer"]
+process_mode = 3
+offset_left = 128.0
+offset_top = 16.0
+offset_right = 224.0
+offset_bottom = 112.0
+scale = Vector2(0.992, 1)
+texture_normal = ExtResource("7_dyth0")
+stretch_mode = 0
+script = ExtResource("6_lxluk")
+
+[node name="PauseMenu" type="Control" parent="CanvasLayer"]
+process_mode = 2
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/PauseMenu"]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.172549)
+
+[node name="Home" type="TextureButton" parent="CanvasLayer/PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -48.0
+offset_right = 48.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("5_imjjt")
+stretch_mode = 0
+script = ExtResource("6_5qsqf")
