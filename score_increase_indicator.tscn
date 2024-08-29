@@ -1,0 +1,93 @@
+[gd_scene load_steps=6 format=3 uid="uid://c8611qno7kn8w"]
+
+[ext_resource type="Script" path="res://score_increase_indicator.gd" id="1_ov2jq"]
+
+[sub_resource type="Theme" id="Theme_ouqcp"]
+default_font_size = 35
+
+[sub_resource type="Animation" id="Animation_6hki6"]
+resource_name = "fade_upwards"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 0.307786),
+"update": 0,
+"values": [Vector2(-50, -24), Vector2(-50, -224)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 0.307),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_agrtb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-50, -24)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w58v1"]
+_data = {
+"RESET": SubResource("Animation_agrtb"),
+"fade_upwards": SubResource("Animation_6hki6")
+}
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ov2jq")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+offset_left = -50.0
+offset_top = -24.0
+offset_right = 50.0
+offset_bottom = 25.0
+pivot_offset = Vector2(50, 24.5)
+theme = SubResource("Theme_ouqcp")
+theme_override_colors/font_color = Color(0, 0.74902, 0, 1)
+text = "+20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Label"]
+libraries = {
+"": SubResource("AnimationLibrary_w58v1")
+}
