@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://score_increase_indicator.gd" id="1_ov2jq"]
 
 [sub_resource type="Theme" id="Theme_ouqcp"]
-default_font_size = 35
+default_font_size = 20
 
 [sub_resource type="Animation" id="Animation_6hki6"]
 resource_name = "fade_upwards"
