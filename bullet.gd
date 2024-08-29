@@ -55,9 +55,13 @@ func _on_destruction_timer_timeout():
 
 func _on_area_entered(area: Area2D):
 	var script = area.get_script()
-	if script != null && script.get_global_name() == "Goomba": 
-		SignalBus.goomba_shot.emit(self, area)
-		destroy_self()
+	if script != null:
+		if script.get_global_name() == "Goomba": 
+			SignalBus.goomba_shot.emit(self, area)
+			destroy_self()
+		elif script.get_global_name() == "ProjectileEnemy":
+			SignalBus.projectile_enemy_shot.emit(area)
+			destroy_self()
 
 func _on_bullet_spawn(bullet: Node2D, bullet_facing: Facing):
 	if bullet == self:

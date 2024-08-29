@@ -16,8 +16,10 @@ var game_over := false
 var on_floor_last_frame := true
 
 var health := 1.0
-var goomba_damage := 0.2
-var spike_damage := 0.4
+const goomba_damage := 0.2
+const spike_damage := 0.4
+const fire_projectile_damage := 0.2
+const projectile_enemy_damage := 0.3
 
 var invincible := false
 @onready var invincibility_timer = $InvincibilityTimer
@@ -32,6 +34,8 @@ func _ready():
 	SignalBus.player_facing_changed.emit(Facing.RIGHT)
 	SignalBus.goomba_collider_hit.connect(_on_goomba_collider_hit)
 	SignalBus.spike_hit_player.connect(_on_spike_hit_player)
+	SignalBus.fire_projectile_hit_player.connect(_on_fire_projectile_hit_player)
+	SignalBus.projectile_enemy_hit.connect(_on_projectile_enemy_hit_player)
 	bullet_spawn_timer.timeout.connect(_on_bullet_spawn_timer_timeout)
 	invincibility_timer.timeout.connect(_on_invincibility_timer_timeout)
 	push_back_timer.timeout.connect(_on_push_back_timer_timeout)
@@ -103,16 +107,26 @@ func set_facing(new_facing: Facing) -> void:
 		SignalBus.player_facing_changed.emit(facing)
 
 func _on_goomba_collider_hit(player: Node2D) -> void:
-	change_health(-goomba_damage)
+	change_health(-goomba_damage, opposite_facing(facing))
+
+func _on_fire_projectile_hit_player(projectile: Area2D) -> void:
+	print("Received signal: %s" % -fire_projectile_damage)
+	var direction := Facing.RIGHT
+	if projectile.global_position.x > global_position.x:
+		direction = Facing.LEFT
+	change_health(-fire_projectile_damage, direction)
 
 func _on_spike_hit_player(spike: Area2D) -> void:
-	change_health(-spike_damage)
+	change_health(-spike_damage, opposite_facing(facing))
+
+func _on_projectile_enemy_hit_player(enemy: Area2D) -> void:
+	change_health(-projectile_enemy_damage, opposite_facing(facing))
 
 func opposite_facing(facing: Facing) -> Facing:
 	if facing == Facing.LEFT: return Facing.RIGHT
 	else: return Facing.LEFT
 
-func change_health(change: float) -> void:
+func change_health(change: float, push_back_direction: Facing) -> void:
 	if not invincible:
 		var old_health := health
 		health = clampf(health + change, 0.0, 1.0)
@@ -123,7 +137,7 @@ func change_health(change: float) -> void:
 		invincible = true
 		SignalBus.player_invincible.emit()
 		
-		push_back_direction = opposite_facing(facing)
+		self.push_back_direction = push_back_direction
 		being_pushed_back = true
 		push_back_timer.paused = false
 		push_back_timer.start()
