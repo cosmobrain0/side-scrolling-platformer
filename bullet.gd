@@ -18,6 +18,7 @@ func direction() -> Vector2:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	add_to_group("bullets")
 	SignalBus.bullet_spawned.connect(_on_bullet_spawn)
 	body_entered.connect(_on_body_entered)
 	area_entered.connect(_on_area_entered)

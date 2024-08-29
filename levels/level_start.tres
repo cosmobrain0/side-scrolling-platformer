@@ -1,12 +1,13 @@
-[gd_resource type="TileSet" load_steps=9 format=3 uid="uid://8htk5l4ykcu"]
+[gd_resource type="TileSet" load_steps=11 format=3 uid="uid://8htk5l4ykcu"]
 
 [ext_resource type="PackedScene" uid="uid://cvuwgi78hdkhj" path="res://projetile_enemy.tscn" id="1_8tll2"]
+[ext_resource type="PackedScene" uid="uid://bf4qx85l8ci6p" path="res://coin.tscn" id="1_1667l"]
 [ext_resource type="Texture2D" uid="uid://h46mtylmcl06" path="res://art/grass-tileset.png" id="1_b4mwi"]
 [ext_resource type="PackedScene" uid="uid://dgtv3oe6ne6s0" path="res://goomba.tscn" id="2_55ks8"]
 [ext_resource type="PackedScene" uid="uid://cfgsd8daqm8ku" path="res://spike.tscn" id="3_yqsc6"]
 
-[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_8m2m1"]
-resource_name = "Projectile Enemy"
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_cbior"]
+resource_name = "Projectile Scene"
 scenes/1/scene = ExtResource("1_8tll2")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xp2wq"]
@@ -80,6 +81,10 @@ scenes/1/scene = ExtResource("2_55ks8")
 resource_name = "SpikeScene"
 scenes/1/scene = ExtResource("3_yqsc6")
 
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_b7844"]
+resource_name = "Coin Scene"
+scenes/1/scene = ExtResource("1_1667l")
+
 [resource]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
@@ -91,4 +96,5 @@ custom_data_layer_0/type = 1
 sources/2 = SubResource("TileSetScenesCollectionSource_jo5b4")
 sources/3 = SubResource("TileSetScenesCollectionSource_6d4c4")
 sources/1 = SubResource("TileSetAtlasSource_xp2wq")
-sources/0 = SubResource("TileSetScenesCollectionSource_8m2m1")
+sources/0 = SubResource("TileSetScenesCollectionSource_cbior")
+sources/4 = SubResource("TileSetScenesCollectionSource_b7844")

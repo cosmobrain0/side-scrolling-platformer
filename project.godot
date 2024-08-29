@@ -19,6 +19,7 @@ config/icon="res://art/icon.svg"
 
 SignalBus="*res://signal_bus.gd"
 FullScreen="*res://full_screen.gd"
+ScoreManager="*res://score_manager.gd"
 
 [display]
 
@@ -30,6 +31,7 @@ window/stretch/mode="viewport"
 [global_group]
 
 projectiles="Fire projectiles shot but the fire enemy"
+bullets="The bullets that the player shoots"
 
 [input]
 
