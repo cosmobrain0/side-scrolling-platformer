@@ -32,6 +32,7 @@ window/stretch/mode="viewport"
 
 projectiles="Fire projectiles shot but the fire enemy"
 bullets="The bullets that the player shoots"
+power-ups="Power-up boxes"
 
 [input]
 

@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddtqu8ukquus5"]
+
+[ext_resource type="Script" path="res://health_increase_indication.gd" id="1_y5rlr"]
+[ext_resource type="Texture2D" uid="uid://bytwj53vxlhtp" path="res://art/power-up-background_1.png" id="2_a4hoq"]
+
+[node name="HealthIncreaseIndication" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_y5rlr")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_right = 96.0
+offset_bottom = 96.0
+texture = ExtResource("2_a4hoq")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true

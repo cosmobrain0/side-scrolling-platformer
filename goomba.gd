@@ -11,6 +11,9 @@ var destroyed := false
 var death_animation_complete := false
 var death_animation_name = "die"
 
+var time_slow_scene := preload("res://power-up-slow-camera.tscn")
+var health_increase_scene := preload("res://health_increase_power_up.tscn")
+
 @onready var ground_check: RayCast2D = $GroundCheck
 @onready var wall_check: RayCast2D = $WallCheck
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
@@ -78,6 +81,15 @@ func _on_goomba_shot(bullet: Node2D, goomba: Area2D):
 		destroy()
 
 func destroy():
+	var random_number := randf()
+	if random_number <= 0.1:
+		var scene: Area2D = time_slow_scene.instantiate()
+		scene.position = global_position
+		get_tree().root.call_deferred("add_child", scene)
+	elif random_number <= 0.2:
+		var scene: Area2D = health_increase_scene.instantiate()
+		scene.position = global_position
+		get_tree().root.call_deferred("add_child", scene)
 	destroyed = true
 	animated_sprite.animation = "dying"
 	death_animation_player.play(death_animation_name)
