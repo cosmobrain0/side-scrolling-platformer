@@ -28,6 +28,10 @@ window/size/viewport_height=1080
 window/size/initial_position_type=4
 window/stretch/mode="viewport"
 
+[global_group]
+
+bullets="The bullets that the player shoots"
+
 [input]
 
 game_left={
