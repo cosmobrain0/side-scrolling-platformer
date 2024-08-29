@@ -69,11 +69,12 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_destructor_body_entered(body: Node2D) -> void:
 	if body.name == "Player" and not destroyed:
 		SignalBus.goomba_bounced_on.emit(body)
+		ScoreManager.change_score(213, global_position)
 		destroy()
 
 func _on_goomba_shot(bullet: Node2D, goomba: Area2D):
 	if goomba == self and not destroyed:
-		print("Destroying")
+		ScoreManager.change_score(132, global_position)
 		destroy()
 
 func destroy():
