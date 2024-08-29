@@ -14,6 +14,8 @@ var game_over := false
 @onready var animation_player = $AnimationPlayer
 @onready var bullet_spawn_timer = $BulletSpawnTimer
 var on_floor_last_frame := true
+const max_jumps := 2
+var jumps_since_on_ground := 0
 
 var health := 1.0
 const goomba_damage := 0.2
@@ -38,6 +40,8 @@ func _ready():
 	SignalBus.projectile_enemy_hit.connect(_on_projectile_enemy_hit_player)
 	SignalBus.time_slow_deactivated.emit()
 	SignalBus.health_increase_activated.connect(_on_player_health_increase)
+	SignalBus.player_landed.connect(_on_player_landed)
+	SignalBus.player_jumped.connect(_on_player_jumped)
 	bullet_spawn_timer.timeout.connect(_on_bullet_spawn_timer_timeout)
 	invincibility_timer.timeout.connect(_on_invincibility_timer_timeout)
 	push_back_timer.timeout.connect(_on_push_back_timer_timeout)
@@ -78,7 +82,7 @@ func _physics_process(delta: float) -> void:
 		else: wants_to_shoot = true
 
 	# Handle jump.
-	if Input.is_action_pressed("game_jump") and is_on_floor():
+	if Input.is_action_just_pressed("game_jump") and jumps_since_on_ground < max_jumps:
 		velocity.y = JUMP_VELOCITY
 		SignalBus.player_jumped.emit(facing)
 
@@ -146,7 +150,7 @@ func change_health(change: float, push_back_direction: Facing) -> void:
 			push_back_timer.start()
 			velocity.y = push_back_jump_force
 			
-			if health <= 0.0:
+			if health <= 0.001:
 				set_player_lost_true()
 	else:
 		health = clampf(health+change, 0.0, 1.0)
@@ -171,3 +175,11 @@ func _on_push_back_timer_timeout():
 
 func _on_player_health_increase():
 	change_health(1.0, facing)
+
+func _on_player_landed(_facing: Facing):
+	print("Resetting jumps!")
+	jumps_since_on_ground = 0
+
+func _on_player_jumped(_facing: Facing):
+	print("Player jumped!")
+	jumps_since_on_ground += 1
