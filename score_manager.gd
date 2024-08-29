@@ -27,7 +27,7 @@ func _on_score_changed(old_score: float, new_score: float, position: Vector2) ->
 	current_score = new_score
 	var scene: ScoreIncreaseIndicator = score_increase_scene.instantiate()
 	scene.position = position
-	scene.score_value = new_score - old_score
+	scene.score_value = str(floorf(new_score - old_score))
 	get_tree().root.add_child(scene)
 
 func set_score(new_score: float, position: Vector2) -> void:
