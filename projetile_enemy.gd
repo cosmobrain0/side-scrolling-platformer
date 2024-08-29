@@ -1,6 +1,9 @@
 class_name ProjectileEnemy
 extends Area2D
 
+var time_slow_scene := preload("res://power-up-slow-camera.tscn")
+var health_increase_scene := preload("res://health_increase_power_up.tscn")
+
 var projectile_scene := preload("res://fire_projectile.tscn")
 @onready var shoot_timer := $ShootTimer
 @onready var animated_sprite := $AnimatedSprite2D
@@ -36,7 +39,16 @@ func _on_body_entered(body: Node2D) -> void:
 		SignalBus.projectile_enemy_hit.emit(self)
 
 func _on_projectile_enemy_shot(projectile_enemy: Area2D) -> void:
-	if projectile_enemy == self:
+	if projectile_enemy == self and not destroyed:
+		var random_number := randf()
+		if random_number <= 0.1:
+			var scene: Area2D = time_slow_scene.instantiate()
+			scene.position = global_position
+			get_tree().root.call_deferred("add_child", scene)
+		elif random_number <= 0.2:
+			var scene: Area2D = health_increase_scene.instantiate()
+			scene.position = global_position
+			get_tree().root.call_deferred("add_child", scene)
 		destroyed = true
 		animated_sprite.play("die")
 		animated_sprite.animation_finished.connect(_on_death_animation_complete)

@@ -82,11 +82,11 @@ func _on_goomba_shot(bullet: Node2D, goomba: Area2D):
 
 func destroy():
 	var random_number := randf()
-	if random_number <= 0.2:
+	if random_number <= 0.1:
 		var scene: Area2D = time_slow_scene.instantiate()
 		scene.position = global_position
 		get_tree().root.call_deferred("add_child", scene)
-	elif random_number <= 0.4:
+	elif random_number <= 0.2:
 		var scene: Area2D = health_increase_scene.instantiate()
 		scene.position = global_position
 		get_tree().root.call_deferred("add_child", scene)
