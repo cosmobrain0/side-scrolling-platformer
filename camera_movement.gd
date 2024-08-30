@@ -2,7 +2,7 @@ extends Node2D
 
 enum Facing {LEFT, RIGHT}
 
-var levels: Array[Resource] = [preload("res://levels/level-0.tscn"), preload("res://levels/level-1.tscn")]
+var levels: Array[Resource] = [preload("res://levels/level-0.tscn"), preload("res://levels/level-1.tscn"), preload("res://levels/level-2.tscn")]
 var previous_level_index = -1
 @onready var previous_scene: TileMapLayer = null
 @onready var current_scene: TileMapLayer = $TileMapLayer
