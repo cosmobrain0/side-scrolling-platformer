@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://4705dahnbrhx"]
+
+[ext_resource type="Texture2D" uid="uid://bpev1ilo7k8kb" path="res://art/full-screen.png" id="1_u8qfi"]
+[ext_resource type="Texture2D" uid="uid://c15k75kddm583" path="res://art/un-full-screen.png" id="2_agovq"]
+[ext_resource type="Script" path="res://fullscreen_button.gd" id="2_enk24"]
+[ext_resource type="Script" path="res://un_fullscreen_button.gd" id="4_gvoky"]
+
+[node name="Control" type="Control"]
+process_mode = 3
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="FullscreenButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 80.0
+grow_horizontal = 0
+pivot_offset = Vector2(64, 0)
+texture_normal = ExtResource("1_u8qfi")
+stretch_mode = 0
+script = ExtResource("2_enk24")
+
+[node name="UnFullscreenButton" type="TextureButton" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 80.0
+grow_horizontal = 0
+pivot_offset = Vector2(64, 0)
+texture_normal = ExtResource("2_agovq")
+stretch_mode = 0
+script = ExtResource("4_gvoky")
