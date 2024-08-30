@@ -2,7 +2,7 @@ extends Node2D
 
 enum Facing {LEFT, RIGHT}
 
-var levels: Array[Resource] = [preload("res://levels/level-0.tscn"), preload("res://levels/level-1.tscn")]
+var levels: Array[Resource] = [preload("res://levels/level-0.tscn"), preload("res://levels/level-1.tscn"), preload("res://levels/level-2.tscn")]
 var previous_level_index = -1
 @onready var previous_scene: TileMapLayer = null
 @onready var current_scene: TileMapLayer = $TileMapLayer
@@ -15,6 +15,10 @@ var movement_speed := normal_movement_speed
 var left_bound_for_player := -50.0
 var time_of_time_slow := 0.0
 var time_slow_duration := 5000.0
+
+var movement_speed_multiplier = 0.0
+const movement_speed_multiplier_increase = 0.25
+var movement_started := false
 
 func time_slow_active() -> bool:
 	return movement_speed == slow_movement_speed
@@ -30,6 +34,7 @@ func _ready() -> void:
 	SignalBus.leaving_game.connect(_on_leaving_game)
 	SignalBus.time_slow_activated.connect(_on_time_slow_activated)
 	SignalBus.time_slow_deactivated.connect(_on_time_slow_deactivated)
+	SignalBus.player_first_movement.connect(_on_player_first_movement)
 
 func _on_time_slow_activated():
 	movement_speed = slow_movement_speed
@@ -54,7 +59,9 @@ func _on_game_restart():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	set_origin(camera_origin - Vector2(movement_speed * delta, 0))
+	if movement_started:
+		movement_speed_multiplier += minf(movement_speed_multiplier_increase*delta, 1.0 - movement_speed_multiplier)
+	set_origin(camera_origin - Vector2(movement_speed * delta * movement_speed_multiplier, 0))
 	
 	if time_slow_active() && Time.get_ticks_msec() - time_of_time_slow >= time_slow_duration:
 		SignalBus.time_slow_deactivated.emit()
@@ -97,3 +104,6 @@ func _on_leaving_game():
 	current_scene.queue_free()
 	next_scene.queue_free()
 	set_origin(Vector2.ZERO)
+
+func _on_player_first_movement():
+	movement_started = true

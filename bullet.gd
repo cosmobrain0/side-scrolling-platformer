@@ -26,6 +26,7 @@ func _ready() -> void:
 	particle_generator.direction = -direction()
 	animator.play("spawn_in")
 	SignalBus.game_restart.connect(_on_game_restart)
+	SignalBus.leaving_game.connect(_on_game_restart)
 
 func _on_game_restart() -> void:
 	queue_free()
@@ -42,6 +43,7 @@ func _on_body_entered(body: Node2D):
 	destroy_self()
 
 func destroy_self():
+	if destroyed: return
 	destroyed = true
 	set_deferred("monitoring", false)
 	set_deferred("monitorable", false)

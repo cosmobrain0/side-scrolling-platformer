@@ -14,6 +14,11 @@ func _ready() -> void:
 	velocity = Vector2.from_angle(angle) * speed
 	body_entered.connect(_on_body_entered)
 	animated_sprite.animation_finished.connect(_on_grow_animation_finished)
+	SignalBus.game_restart.connect(_on_game_restart)
+	SignalBus.leaving_game.connect(_on_game_restart)
+
+func _on_game_restart() -> void:
+	queue_free()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

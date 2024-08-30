@@ -35,7 +35,7 @@ func _on_shoot_timer_timeout() -> void:
 	get_tree().root.add_child(projectile)
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.name == "Player":
+	if body.name == "Player" and not destroyed:
 		SignalBus.projectile_enemy_hit.emit(self)
 
 func _on_projectile_enemy_shot(projectile_enemy: Area2D) -> void:
