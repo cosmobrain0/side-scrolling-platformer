@@ -1,7 +1,10 @@
-[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://bt0qe2g8xly52"]
+[gd_resource type="TileSet" load_steps=8 format=3 uid="uid://bt0qe2g8xly52"]
 
 [ext_resource type="Texture2D" uid="uid://h46mtylmcl06" path="res://art/grass-tileset.png" id="1_g1y0c"]
 [ext_resource type="PackedScene" uid="uid://dgtv3oe6ne6s0" path="res://goomba.tscn" id="2_a645p"]
+[ext_resource type="PackedScene" uid="uid://cvuwgi78hdkhj" path="res://projetile_enemy.tscn" id="3_haafg"]
+[ext_resource type="PackedScene" uid="uid://bf4qx85l8ci6p" path="res://coin.tscn" id="4_1ct3p"]
+[ext_resource type="PackedScene" uid="uid://cfgsd8daqm8ku" path="res://spike.tscn" id="5_23pc8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_38yct"]
 resource_name = "Terrain"
@@ -135,8 +138,11 @@ texture_region_size = Vector2i(32, 32)
 11:0/1/terrains_peering_bit/bottom_side = 0
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_jo5b4"]
-resource_name = "GoombaScene"
+resource_name = "Items"
 scenes/1/scene = ExtResource("2_a645p")
+scenes/2/scene = ExtResource("3_haafg")
+scenes/3/scene = ExtResource("4_1ct3p")
+scenes/4/scene = ExtResource("5_23pc8")
 
 [resource]
 tile_size = Vector2i(32, 32)
