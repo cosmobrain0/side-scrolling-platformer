@@ -14,7 +14,7 @@ var game_over := false
 @onready var animation_player = $AnimationPlayer
 @onready var bullet_spawn_timer = $BulletSpawnTimer
 var on_floor_last_frame := true
-const max_jumps := 2
+const max_jumps := 1
 var jumps_since_on_ground := 0
 
 var health := 1.0
@@ -82,9 +82,15 @@ func _physics_process(delta: float) -> void:
 		else: wants_to_shoot = true
 
 	# Handle jump.
-	if Input.is_action_just_pressed("game_jump") and jumps_since_on_ground < max_jumps:
+	if is_on_floor():
+		if Input.is_action_pressed("game_jump"):
+			velocity.y = JUMP_VELOCITY
+			SignalBus.player_jumped.emit(facing)
+			jumps_since_on_ground = 0
+	elif Input.is_action_just_pressed("game_jump") and jumps_since_on_ground < max_jumps:
 		velocity.y = JUMP_VELOCITY
 		SignalBus.player_jumped.emit(facing)
+		jumps_since_on_ground += 1
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -177,9 +183,7 @@ func _on_player_health_increase():
 	change_health(1.0, facing)
 
 func _on_player_landed(_facing: Facing):
-	print("Resetting jumps!")
 	jumps_since_on_ground = 0
 
 func _on_player_jumped(_facing: Facing):
-	print("Player jumped!")
-	jumps_since_on_ground += 1
+	pass
