@@ -31,6 +31,7 @@ var being_pushed_back := false
 var push_back_direction: Facing
 const push_back_force := 300.0
 const push_back_jump_force := -100.0
+var first_movement := false
 
 func _ready():
 	SignalBus.player_facing_changed.emit(Facing.RIGHT)
@@ -99,6 +100,9 @@ func _physics_process(delta: float) -> void:
 		velocity.x = direction * SPEED
 		if direction > 0: set_facing(Facing.RIGHT)
 		else: set_facing(Facing.LEFT)
+		if not first_movement:
+			first_movement = true
+			SignalBus.player_first_movement.emit()
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
