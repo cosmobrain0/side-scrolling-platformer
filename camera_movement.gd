@@ -16,6 +16,9 @@ var left_bound_for_player := -50.0
 var time_of_time_slow := 0.0
 var time_slow_duration := 5000.0
 
+var movement_speed_multiplier = 0.0
+const movement_speed_multiplier_increase = 0.25
+
 func time_slow_active() -> bool:
 	return movement_speed == slow_movement_speed
 
@@ -54,7 +57,8 @@ func _on_game_restart():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	set_origin(camera_origin - Vector2(movement_speed * delta, 0))
+	movement_speed_multiplier += minf(movement_speed_multiplier_increase*delta, 1.0 - movement_speed_multiplier)
+	set_origin(camera_origin - Vector2(movement_speed * delta * movement_speed_multiplier, 0))
 	
 	if time_slow_active() && Time.get_ticks_msec() - time_of_time_slow >= time_slow_duration:
 		SignalBus.time_slow_deactivated.emit()
