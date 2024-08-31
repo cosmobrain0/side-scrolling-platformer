@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://bn6k0pasiopnl"]
+
+[ext_resource type="Script" path="res://volume_slider.gd" id="1_a8hb1"]
+[ext_resource type="Texture2D" uid="uid://ckw8fibafld27" path="res://art/volume_0.png" id="1_jcvep"]
+[ext_resource type="Texture2D" uid="uid://dvhbjwb2o78tg" path="res://art/volume_1.png" id="2_ikfrh"]
+[ext_resource type="Script" path="res://mute_button.gd" id="4_jttl1"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_6vfag"]
+device = -1
+keycode = 77
+unicode = 109
+
+[sub_resource type="Shortcut" id="Shortcut_jwosv"]
+events = [SubResource("InputEventKey_6vfag")]
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_0cblj"]
+frames = 2
+pause = true
+frame_0/texture = ExtResource("1_jcvep")
+frame_1/texture = ExtResource("2_ikfrh")
+frame_1/duration = 1.0
+
+[node name="Control" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HSlider" type="HSlider" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -192.0
+offset_top = 16.0
+offset_right = -64.0
+offset_bottom = 48.0
+grow_horizontal = 0
+min_value = -60.0
+max_value = 6.0
+ticks_on_borders = true
+script = ExtResource("1_a8hb1")
+
+[node name="Button" type="Button" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -256.0
+offset_right = -192.0
+offset_bottom = 64.0
+grow_horizontal = 0
+shortcut = SubResource("Shortcut_jwosv")
+icon = SubResource("AnimatedTexture_0cblj")
+flat = true
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("4_jttl1")

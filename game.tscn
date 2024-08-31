@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://df4kunsqsl0ec"]
+[gd_scene load_steps=13 format=4 uid="uid://df4kunsqsl0ec"]
 
 [ext_resource type="PackedScene" uid="uid://crbea4m5tlvro" path="res://level_start.tscn" id="1_k8cs1"]
 [ext_resource type="Script" path="res://camera_movement.gd" id="1_xx8kd"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bp188smveek4c" path="res://art/pause.png" id="7_dyth0"]
 [ext_resource type="PackedScene" uid="uid://c5xeu2wjd30ma" path="res://time_slow_indication_ui.tscn" id="10_0kn8r"]
 [ext_resource type="PackedScene" uid="uid://4705dahnbrhx" path="res://full-screen-button.tscn" id="11_hkims"]
+[ext_resource type="PackedScene" uid="uid://bn6k0pasiopnl" path="res://volume.tscn" id="12_lt2ae"]
 
 [node name="Node2D" type="Node2D"]
 texture_filter = 1
@@ -87,3 +88,5 @@ stretch_mode = 0
 script = ExtResource("6_lxluk")
 
 [node name="Control" parent="CanvasLayer" instance=ExtResource("11_hkims")]
+
+[node name="Volume" parent="CanvasLayer" instance=ExtResource("12_lt2ae")]
