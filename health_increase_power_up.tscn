@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dw8t1tdeaiymp"]
+[gd_scene load_steps=7 format=3 uid="uid://dw8t1tdeaiymp"]
 
 [ext_resource type="Script" path="res://health_increase_power_up.gd" id="1_p1f87"]
 [ext_resource type="Texture2D" uid="uid://w3ocne4a1ned" path="res://art/power-up-background.png" id="2_p5va5"]
+[ext_resource type="AudioStream" uid="uid://emsmbff6px2a" path="res://audio/pick-up.ogg" id="3_rgspd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bii7r"]
 size = Vector2(30, 30)
@@ -32,3 +33,7 @@ shape = SubResource("RectangleShape2D_bii7r")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_2nw3i")
 animation = &"health-increase"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_rgspd")
+bus = &"PickUps"

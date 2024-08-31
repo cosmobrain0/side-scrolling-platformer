@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cy7e8noipb1dv"]
+[gd_scene load_steps=7 format=3 uid="uid://cy7e8noipb1dv"]
 
 [ext_resource type="Texture2D" uid="uid://w3ocne4a1ned" path="res://art/power-up-background.png" id="1_d7uks"]
 [ext_resource type="Script" path="res://power_up_slow_camera.gd" id="1_vhayq"]
+[ext_resource type="AudioStream" uid="uid://emsmbff6px2a" path="res://audio/pick-up.ogg" id="3_1jtoc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bii7r"]
 size = Vector2(30, 30)
@@ -32,3 +33,6 @@ shape = SubResource("RectangleShape2D_bii7r")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_2nw3i")
 animation = &"time-slow"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_1jtoc")

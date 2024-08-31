@@ -7,9 +7,11 @@ var health_increase_scene := preload("res://health_increase_power_up.tscn")
 var projectile_scene := preload("res://fire_projectile.tscn")
 @onready var shoot_timer := $ShootTimer
 @onready var animated_sprite := $AnimatedSprite2D
+@onready var audio_player := $AudioStreamPlayer2D
 
 var destroyed := false
 var death_animation_complete := false
+var death_audio_complete := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -19,7 +21,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if destroyed and death_animation_complete and death_audio_complete: queue_free()
 
 func _on_shoot_timer_timeout() -> void:
 	if destroyed:
@@ -52,6 +54,14 @@ func _on_projectile_enemy_shot(projectile_enemy: Area2D) -> void:
 		destroyed = true
 		animated_sprite.play("die")
 		animated_sprite.animation_finished.connect(_on_death_animation_complete)
+		audio_player.play()
+		audio_player.finished.connect(_on_death_audio_complete)
+		set_deferred("monitorable", false)
+		set_deferred("monitoring", false)
+		
 
 func _on_death_animation_complete() -> void:
-	queue_free()
+	death_animation_complete = false
+
+func _on_death_audio_complete() -> void:
+	death_audio_complete = true

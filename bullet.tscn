@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://c4d8g865d73wq"]
+[gd_scene load_steps=9 format=3 uid="uid://c4d8g865d73wq"]
 
 [ext_resource type="Texture2D" uid="uid://dta78t012cbyc" path="res://art/bullet.png" id="1_0fca3"]
 [ext_resource type="Script" path="res://bullet.gd" id="1_321oa"]
 [ext_resource type="Texture2D" uid="uid://oqlipdfp56rc" path="res://art/bullet-particles.png" id="3_ayx6y"]
+[ext_resource type="AudioStream" uid="uid://5g8d7xc1r4ik" path="res://audio/bullet-shot.ogg" id="4_nmd0e"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f1cjf"]
 
@@ -80,3 +81,7 @@ hue_variation_max = 0.46
 libraries = {
 "": SubResource("AnimationLibrary_effee")
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_nmd0e")
+autoplay = true

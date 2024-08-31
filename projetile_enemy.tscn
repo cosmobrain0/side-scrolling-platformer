@@ -1,7 +1,8 @@
-[gd_scene load_steps=23 format=3 uid="uid://cvuwgi78hdkhj"]
+[gd_scene load_steps=24 format=3 uid="uid://cvuwgi78hdkhj"]
 
 [ext_resource type="Script" path="res://projetile_enemy.gd" id="1_dbco8"]
 [ext_resource type="Texture2D" uid="uid://uasepabxn0bc" path="res://art/fire.png" id="1_idano"]
+[ext_resource type="AudioStream" uid="uid://bft1sncj5gcn7" path="res://audio/fire-death.ogg" id="3_1mmyk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gyrdj"]
 radius = 12.0
@@ -160,7 +161,12 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_3adhi")
 animation = &"die"
 autoplay = "default"
+frame = 9
+frame_progress = 1.0
 
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 2.5
 autostart = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_1mmyk")
