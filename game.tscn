@@ -34,16 +34,11 @@ offset_top = 16.0
 offset_right = 640.0
 offset_bottom = 16.0
 
-[node name="TextureButton" type="TextureButton" parent="CanvasLayer"]
-process_mode = 3
-offset_left = 16.0
+[node name="TimeSlowIndication" parent="CanvasLayer" instance=ExtResource("10_0kn8r")]
+offset_left = 960.0
 offset_top = 16.0
-offset_right = 112.0
-offset_bottom = 112.0
-scale = Vector2(0.992, 1)
-texture_normal = ExtResource("7_dyth0")
-stretch_mode = 0
-script = ExtResource("6_lxluk")
+offset_right = 960.0
+offset_bottom = 16.0
 
 [node name="PauseMenu" type="Control" parent="CanvasLayer"]
 process_mode = 2
@@ -80,10 +75,15 @@ texture_normal = ExtResource("5_imjjt")
 stretch_mode = 0
 script = ExtResource("6_5qsqf")
 
-[node name="TimeSlowIndication" parent="CanvasLayer" instance=ExtResource("10_0kn8r")]
-offset_left = 960.0
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer"]
+process_mode = 3
+offset_left = 16.0
 offset_top = 16.0
-offset_right = 960.0
-offset_bottom = 16.0
+offset_right = 112.0
+offset_bottom = 112.0
+scale = Vector2(0.992, 1)
+texture_normal = ExtResource("7_dyth0")
+stretch_mode = 0
+script = ExtResource("6_lxluk")
 
 [node name="Control" parent="CanvasLayer" instance=ExtResource("11_hkims")]
