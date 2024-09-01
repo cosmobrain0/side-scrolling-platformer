@@ -90,3 +90,7 @@ script = ExtResource("6_lxluk")
 [node name="Control" parent="CanvasLayer" instance=ExtResource("11_hkims")]
 
 [node name="Volume" parent="CanvasLayer" instance=ExtResource("12_lt2ae")]
+offset_left = -32.0
+offset_top = 16.0
+offset_right = -32.0
+offset_bottom = 16.0

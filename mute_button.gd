@@ -4,7 +4,7 @@ var bus_to_change_name := "Sound Effects"
 @onready var bus = AudioServer.get_bus_index(bus_to_change_name)
 
 var previous_volume := 0.0
-var min_volume := -24.0
+var min_volume := -60.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,7 +13,7 @@ func _ready() -> void:
 	pressed.connect(_on_pressed)
 
 func _on_volume_changed(new_volume: float) -> void:
-	if new_volume == min_volume:
+	if new_volume <= min_volume:
 		AudioServer.set_bus_mute(bus, true)
 		icon.current_frame = 0
 	else:
@@ -22,7 +22,7 @@ func _on_volume_changed(new_volume: float) -> void:
 		previous_volume = new_volume
 
 func _on_pressed() -> void:
-	if AudioServer.get_bus_volume_db(bus) == min_volume:
+	if AudioServer.get_bus_volume_db(bus) <= min_volume:
 		SignalBus.volume_changed.emit(previous_volume)
 	else:
 		SignalBus.volume_changed.emit(min_volume)

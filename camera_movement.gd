@@ -61,7 +61,7 @@ func _on_game_restart():
 func _process(delta: float) -> void:
 	if movement_started:
 		movement_speed_multiplier += minf(movement_speed_multiplier_increase*delta, 1.0 - movement_speed_multiplier)
-	set_origin(camera_origin - Vector2(movement_speed * delta * movement_speed_multiplier, 0))
+	set_origin(camera_origin - Vector2(movement_speed * delta * movement_speed_multiplier * DifficultyManager.difficulty, 0))
 	
 	if time_slow_active() && Time.get_ticks_msec() - time_of_time_slow >= time_slow_duration:
 		SignalBus.time_slow_deactivated.emit()

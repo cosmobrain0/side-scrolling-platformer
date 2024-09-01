@@ -5,9 +5,9 @@ var bus_to_change_name := "Sound Effects"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	AudioServer.set_bus_volume_db(bus, value)
 	value_changed.connect(_on_value_changed)
 	SignalBus.volume_changed.connect(_on_volume_changed)
+	value = AudioServer.get_bus_volume_db(bus)
 
 func _on_value_changed(new_value: float):
 	SignalBus.volume_changed.emit(value)

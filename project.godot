@@ -20,6 +20,7 @@ config/icon="res://art/icon.svg"
 SignalBus="*res://signal_bus.gd"
 FullScreen="*res://full_screen.gd"
 ScoreManager="*res://score_manager.gd"
+DifficultyManager="*res://difficulty_manager.gd"
 
 [display]
 
