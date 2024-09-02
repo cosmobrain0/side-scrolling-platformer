@@ -94,3 +94,7 @@ offset_left = -32.0
 offset_top = 16.0
 offset_right = -32.0
 offset_bottom = 16.0
+
+[node name="TimeSlowTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true

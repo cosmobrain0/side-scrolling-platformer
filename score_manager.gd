@@ -8,16 +8,21 @@ var combo := 0
 const combo_cooldown := 2500
 const combo_coefficient := 0.3
 var previous_score_increase_time := -combo_cooldown
+var timer: Timer
 
 func _ready():
+	timer = Timer.new()
+	timer.one_shot = true
+	timer.wait_time = combo_cooldown/1000.0
+	timer.paused = true
+	add_child(timer)
+	timer.timeout.connect(_on_timer_timeout)
 	SignalBus.game_restart.connect(_on_game_restart)
 	SignalBus.score_changed.connect(_on_score_changed)
 	SignalBus.player_health_changed.connect(_on_player_health_changed)
 
-func _process(delta: float):
-	var current_time := Time.get_ticks_msec()
-	if current_time - previous_score_increase_time >= combo_cooldown:
-		combo = 0
+func _on_timer_timeout():
+	combo = 0
 
 func _on_game_restart() -> void:
 	high_score = maxf(current_score, high_score)
@@ -38,7 +43,9 @@ func set_score(new_score: float, position: Vector2) -> void:
 func change_score(change: float, position: Vector2) -> void:
 	if change > 0:
 		combo += 1
-		previous_score_increase_time = Time.get_ticks_msec()
+		timer.stop()
+		timer.paused = false
+		timer.start()
 	set_score(current_score + change * (1 + combo * combo_coefficient), position)
 
 func _on_player_health_changed(old_health: float, new_health: float) -> void:
